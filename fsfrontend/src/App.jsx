@@ -1,19 +1,19 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import './App.css'
-import { Button } from 'primereact/button';
+// import './App.css'
+import { Route, Routes } from 'react-router-dom';
+
+import General from './general/general'
+import Main from './main/Main';
 
 function App() {
-  // const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div className="card flex justify-content-center">
-        <Button label="Check" icon="pi pi-check" />
-      </div>
-
-    </>
+    <Routes>
+      <Route path="/" element={<General />} />
+      <Route path="/main" element={<Main />} />
+      <Route path="*" element={<div>You are lost!</div>} />
+    </Routes>
   )
 }
 
