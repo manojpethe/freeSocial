@@ -1,5 +1,5 @@
 // import React from 'react'
-import Menu from './menu/menu'
+import Menu from './menu/Menu'
 import poster from "../assets/img/indianWedding.jpg"
 
 const Intro = () => {

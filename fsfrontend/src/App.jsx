@@ -9,7 +9,6 @@ import Main from './main/Main';
 import Contact from './home/Contact';
 import Help from './home/Help';
 import Login from './home/Login';
-// import Menu from './home/menu/menu';
 import Intro from './home/Intro';
 import Feed from './main/Feed';
 import DesiredPartner from './main/DesiredPartner';
