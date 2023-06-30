@@ -1,6 +1,6 @@
 // import React from 'react'
 import { Outlet } from "react-router-dom"
-import Menu from "./menu/menu"
+import Menu from "./menu/Menu"
 
 const Home = () => {
   return (
