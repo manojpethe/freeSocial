@@ -6,8 +6,11 @@ import { BrowserRouter } from "react-router-dom";
 import "primereact/resources/themes/bootstrap4-light-purple/theme.css";
 //core
 import "primereact/resources/primereact.min.css";
-// icons
+//icons
 import 'primeicons/primeicons.css';
+//primeflex
+import '/node_modules/primeflex/primeflex.css';
+
 import App from './App.jsx'
 // import './index.css'
 import './custom.css'
