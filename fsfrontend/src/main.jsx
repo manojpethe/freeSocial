@@ -10,6 +10,7 @@ import "primereact/resources/primereact.min.css";
 import 'primeicons/primeicons.css';
 import App from './App.jsx'
 // import './index.css'
+import './custom.css'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

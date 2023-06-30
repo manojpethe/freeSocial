@@ -1,12 +1,14 @@
 // import React from 'react'
+import { Outlet } from "react-router-dom"
 import Menu from "./menu/menu"
 
-const General = () => {
+const Home = () => {
   return (
     <div>
         <Menu/>
+        <Outlet/>
     </div>
   )
 }
 
-export default General
+export default Home
