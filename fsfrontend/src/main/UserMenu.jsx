@@ -44,7 +44,7 @@ const UserMenu = () => {
                 {
                     label: 'Logout',
                     icon: 'pi pi-fw pi-sign-out',
-                    command: () => { navigate("/home/logout") }
+                    command: () => { navigate("/") }
                 }
             ]
         }
