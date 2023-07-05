@@ -1,4 +1,5 @@
 // import React from 'react'
+import { Link } from "react-router-dom";
 
 const LeftPane = () => {
     return (
@@ -6,7 +7,7 @@ const LeftPane = () => {
             <div style={{"height":"150px","width":"100%"}}>Profile DP</div>
             <div style={{"height":"60px","width":"100%"}}>Suggestions</div>
             <div style={{"height":"60px","width":"100%"}}>Acitivity</div>
-            <div style={{"height":"60px","width":"100%"}}>Search</div>
+            <div style={{"height":"60px","width":"100%"}}> <Link to="/main/search">Search</Link></div>
             <div style={{"height":"60px","width":"100%"}}>Messenger</div>
         </div>
     )

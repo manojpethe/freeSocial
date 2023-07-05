@@ -11,8 +11,7 @@ const Feed = () => {
       <div className="grid" style={{"width":"100%"}}>
         {width > 400 ? <div className="col-12 lg:col-3 md:col-3 "><LeftPane /></div> : ""}
         <div className="col-12 lg:col-6 md:col-6"><Suggestion/></div>
-        <div className="col-12 lg:col-3 md:col-3">3</div>
-        {/* <div className="col">4</div> */}
+        <div className="col-12 lg:col-3 md:col-3">.</div>
       </div>
     </>
   )

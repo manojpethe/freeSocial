@@ -12,6 +12,12 @@ import Login from './home/Login';
 import Intro from './home/Intro';
 import Feed from './main/Feed';
 import DesiredPartner from './main/DesiredPartner';
+import Search from './main/Search';
+import EditProfile from './main/EditProfile';
+import Logout from './main/Logout';
+import ProtectedRoute from './home/ProtectedRoute';
+import AccountSettings from './main/AccountSettings';
+import BlockedIgnored from './main/BlockedIgnored';
 
 function App() {
   return (
@@ -23,10 +29,14 @@ function App() {
         <Route path="contact" element={<Contact />} />
       </Route>
       <Route path="/main" element={<Main />} >
-        <Route path="/main/feed" element={<Feed />} />
-        <Route path="/main/editprofile" element={<Main />} />
-        <Route path="/main/desiredPartner" element={<DesiredPartner />} />
-        <Route path="/main/search" element={<Main />} />
+        <Route path="feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
+        <Route path="editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+        <Route path="desiredPartner" element={<ProtectedRoute><DesiredPartner /></ProtectedRoute>} />
+        <Route path="search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
+        <Route path="logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
+        <Route path="blockedIgnored" element={<ProtectedRoute><BlockedIgnored /></ProtectedRoute>} />
+        <Route path="accountSettings" element={<ProtectedRoute><AccountSettings /></ProtectedRoute>} />
+        <Route path="support" element={<ProtectedRoute><Help /></ProtectedRoute>} />
       </Route>
       <Route path="*" element={<div>404</div>} />
     </Routes>
