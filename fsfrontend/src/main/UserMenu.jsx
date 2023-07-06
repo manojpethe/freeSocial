@@ -1,5 +1,6 @@
 // import React from 'react'
 import { Menubar } from 'primereact/menubar';
+import { Avatar } from 'primereact/avatar';
 // import { InputText } from 'primereact/inputtext';
 // import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,11 @@ const UserMenu = () => {
             label: 'Profile',
             icon: 'pi pi-fw pi-user',
             items: [
+                {
+                    label: 'Edit Profile',
+                    icon: 'pi pi-fw pi-user-edit',
+                    command: () => { navigate("/main/editProfile") }
+                },
                 {
                     label: 'Partner Preference',
                     icon: 'pi pi-fw pi-users',
@@ -56,12 +62,12 @@ const UserMenu = () => {
     const start = <div style={{ "cursor": "pointer" }}><p className="mr-2" onClick={() => { navigate("/main/feed") }} >friends.com</p></div>;
     // const end = <InputText placeholder="Search" type="text" className="w-full" />;
     const end = (
-        <div style={{ "display": "flex" }}>
-            <div style={{ "cursor": "pointer", "paddingRight": "10px" }} onClick={showAlerts}>
-                <i className="pi pi-bell"></i>
+        <div style={{ "display": "flex", "width":"100px", "justify-content": "space-around" }}>
+            <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={showAlerts}>
+                <i className="pi pi-bell" style={{ fontSize: '1.5rem' }} />
             </div>
             <div>
-                <img src={UserInfo?.data?.picture} width={30} />
+                <Avatar image={UserInfo?.data?.picture} shape="circle" />
             </div>
         </div>
     );

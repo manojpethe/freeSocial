@@ -28,7 +28,7 @@ function App() {
         <Route path="help" element={<Help />} />
         <Route path="contact" element={<Contact />} />
       </Route>
-      <Route path="/main" element={<Main />} >
+      <Route path="/main" element={<ProtectedRoute><Main /></ProtectedRoute>} >
         <Route path="feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
         <Route path="editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
         <Route path="desiredPartner" element={<ProtectedRoute><DesiredPartner /></ProtectedRoute>} />
