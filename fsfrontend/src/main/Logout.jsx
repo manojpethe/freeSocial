@@ -16,10 +16,13 @@ const Logout = () => {
     }
 
     return (
-        <div>
-            <div>Please confirmm do you wish to Logout?</div>
-            <div><Button onClick={() => { userLogout() }}>Yes</Button></div>
-
+        <div className='centerDiv'>
+            <center>
+                <div style={{ "marginBottom": "10px" }} className='text-2xl'>Please confirm, do you wish to Logout?</div>
+                <div>
+                    <Button label="Yes" severity='danger' onClick={() => { userLogout() }} />&nbsp;
+                    <Button label="No" severity='secondary' onClick={() => { navigate("/main/feed") }} /></div>
+            </center>
         </div>
     )
 }

@@ -11,10 +11,12 @@ const LeftPane = () => {
     return (
         <div style={{ "width": "75%", "padding": "10px", "marginLeft": "25%", "margin": "20px", "paddingLeft": "10%" }}>
             <Card>
-                <div style={{ "height": "150px", "width": "100%", "cursor":"pointer", "color":"blue" }} onClick={()=>{ navigate("/main/editProfile"); }} >
+                <div style={{ "height": "150px", "width": "100%", "cursor":"pointer" }} onClick={()=>{ navigate("/main/editProfile"); }} >
                 <Avatar image={profileImage} size="xlarge" shape="circle" /><br/>
+                <span className='text-base'>
                 Merlyin Monroe <br/>
                 Edit Profile <br/>
+                </span>
                 </div>
                 <Button onClick={() => { navigate("/main/feed"); }} icon="pi pi-link" label="Suggestions" severity="secondary" text /><br />
                 <Button onClick={() => { navigate("/main/feed"); }} icon="pi pi-sort-alpha-down" label="Activity" severity="secondary" text /><br />
