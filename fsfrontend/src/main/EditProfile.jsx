@@ -3,7 +3,8 @@ import { Panel } from 'primereact/panel';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { InputTextarea } from 'primereact/inputtextarea';
+import { Dropdown } from 'primereact/dropdown';
+import { Calendar } from 'primereact/calendar';
 
 let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
 
@@ -58,6 +59,9 @@ const EditBasicInfo = (props) => {
 }
 
 const ShowCriticalInfo = () => {
+
+
+
   return (<div>
     <div><br />
       <div className="grid" style={{ "width": "100%" }}>
@@ -69,12 +73,23 @@ const ShowCriticalInfo = () => {
 }
 
 const EditCriticalInfo = (props) => {
+  const [martialStatus, setMaritalStatus] = useState('Unmarried');
+  const maritalStatusOptions = [
+    { name: 'Unmarried', code: 'Unmarried' },
+    { name: 'Divorce in progress', code: 'Divorce in progress' },
+    { name: 'Divorced', code: 'Divorced' },
+  ];
+
   return (<div>
     <div className="grid" style={{ "width": "100%" }}>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }} >Birthdate</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><Calendar /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Marital Status</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><div className="card flex justify-content-center">
+        <Dropdown value={martialStatus} onChange={(e) => setMaritalStatus(e.value)} options={maritalStatusOptions} optionLabel="name"
+          placeholder="Select marital Status" className="w-full" style={{"width":"100%"}} />
+      </div>
+      </div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
       <div className="col-12 lg:col-8 md:col-8">
         <Button onClick={() => { props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
@@ -95,8 +110,7 @@ const EditProfile = () => {
       <div className="col-12 lg:col-3 md:col-3 "></div>
       <div className="col-12 lg:col-6 md:col-6">
         <Panel header="Edit Profile">
-          {/* <div style={{"fontFamily":"verdana","fontSize":"15px","color":"#363636","marginTop":"10px", "marginLeft":"20px","marginBottom":"10px"}}>Edit Profile</div> */}
-          <div style={{ "marginLeft": "20px","marginBottom":"10px" }}>
+          <div style={{ "marginLeft": "20px", "marginBottom": "10px" }}>
             <div><div className='text-pink-600' style={{ "float": "left" }}>Basic Information</div><div style={{ "float": "right" }}>
               <Button onClick={() => { setEditBasicInfoToggle(true) }} label="Edit" severity="danger" text />
             </div>
@@ -104,7 +118,7 @@ const EditProfile = () => {
             <br />
             {!editBasicInfoToggle ? <ShowBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} /> : <EditBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} />}
           </div>
-          <div style={{ "marginLeft": "20px","marginBottom":"10px" }}>
+          <div style={{ "marginLeft": "20px", "marginBottom": "10px" }}>
             <div><div className='text-pink-600' style={{ "float": "left" }}>Critical Information</div><div style={{ "float": "right" }}>
               <Button onClick={() => { setEditCriticalInfoToggle(true) }} label="Edit" severity="danger" text />
             </div>
