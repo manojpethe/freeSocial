@@ -113,9 +113,9 @@ const EditAboutMe = (props) =>{
           </div>
           <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
           <div className="col-12 lg:col-8 md:col-8">
-        <Button onClick={() => { props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
-        <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
-      </div>
+            <Button onClick={() => { props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+            <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
+          </div>
       </div>
       </div>
     </div>
