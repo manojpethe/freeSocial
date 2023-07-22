@@ -111,10 +111,11 @@ const EditAboutMe = (props) =>{
           <div className="col-12 lg:col-6 md:col-6">
           <InputTextarea autoResize value={career} onChange={(e) => setCareer(e.target.value)} rows={3} cols={30} />
           </div>
-      </div>
-      <div className="col-12 lg:col-8 md:col-8">
+          <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
+          <div className="col-12 lg:col-8 md:col-8">
         <Button onClick={() => { props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
         <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
+      </div>
       </div>
       </div>
     </div>
