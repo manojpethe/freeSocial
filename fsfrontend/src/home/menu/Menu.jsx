@@ -36,7 +36,7 @@ const Menu = () => {
     const end = <InputText placeholder="Search" type="text" className="w-full" />;
 
     return (
-        <div className="card sticky">
+        <div className="card sticky" style={{"zIndex":"100"}}>
             <Menubar model={items} start={start} end={end}  />
         </div>
     )

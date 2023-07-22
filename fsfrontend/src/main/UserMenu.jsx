@@ -62,7 +62,7 @@ const UserMenu = () => {
     const start = <div style={{ "cursor": "pointer" }}><p className="mr-2" onClick={() => { navigate("/main/feed") }} >friends.com</p></div>;
     // const end = <InputText placeholder="Search" type="text" className="w-full" />;
     const end = (
-        <div style={{ "display": "flex", "width":"100px", "justify-content": "space-around" }}>
+        <div style={{ "display": "flex", "width":"100px", "justifyContent": "space-around" }}>
             <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={showAlerts}>
                 <i className="pi pi-bell" style={{ fontSize: '1.5rem' }} />
             </div>
@@ -76,7 +76,7 @@ const UserMenu = () => {
 
     return (
         <div className="card sticky">
-            <Menubar model={items} start={start} end={end} />
+            <Menubar model={items} start={start} end={end} style={{"zIndex":"2147483647"}} />
         </div>
     )
 }

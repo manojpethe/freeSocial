@@ -6,7 +6,7 @@ import {Navigate, useLocation} from "react-router-dom"
 const ProtectedRoute = ({children}) => {
     const UserInfo = useSelector((state) => state.userInfo);
     let location = useLocation();
-    console.log('UserInfo:',UserInfo);
+    // console.log('UserInfo:',UserInfo);
 
     if(!UserInfo.data.email) {
         return <Navigate to="/home/login" state={{ from: location}} replace />

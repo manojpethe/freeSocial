@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Panel } from 'primereact/panel';
-import { Card } from 'primereact/card';
+// import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
+import { InputTextarea } from 'primereact/inputtextarea';
 
 let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
 
@@ -59,9 +60,6 @@ const EditBasicInfo = (props) => {
 }
 
 const ShowCriticalInfo = () => {
-
-
-
   return (<div>
     <div><br />
       <div className="grid" style={{ "width": "100%" }}>
@@ -70,6 +68,57 @@ const ShowCriticalInfo = () => {
       </div>
     </div>
   </div>)
+}
+
+
+const ShowAboutMe = () => {
+  return (<div>
+    <div><br />
+      <div className="grid" style={{ "width": "100%" }}>
+        {/* <div className="col-6 lg:col-6 md:col-6">about me, my family, about education, my career</div> */}
+        <div className="col-12 lg:col-6 md:col-6">About Me</div>
+        <div className="col-12 lg:col-6 md:col-6">My Family</div>
+        <div className="col-12 lg:col-6 md:col-6">Education</div>
+        <div className="col-12 lg:col-6 md:col-6">Background</div>
+      </div>
+    </div>
+  </div>)
+}
+
+const EditAboutMe = (props) =>{
+  const [aboutMe, setAboutMe] = useState("");
+  const [aboutFamily, setAboutFamily] = useState("");
+  const [education, setEducation] = useState("");
+  const [career, setCareer] = useState("");
+
+  return(
+    <div>
+      <div><br />
+        <div className="grid" style={{ "width": "100%" }}>
+          <div className="col-12 lg:col-6 md:col-6">About Me</div>
+          <div className="col-12 lg:col-6 md:col-6">
+          <InputTextarea autoResize value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} rows={5} cols={30} />
+          </div>
+          <div className="col-12 lg:col-6 md:col-6">About Family</div>
+          <div className="col-12 lg:col-6 md:col-6">
+          <InputTextarea autoResize value={aboutFamily} onChange={(e) => setAboutFamily(e.target.value)} rows={2} cols={30} />
+          </div>
+          <div className="col-12 lg:col-6 md:col-6">Education</div>
+          <div className="col-12 lg:col-6 md:col-6">
+          <InputTextarea autoResize value={education} onChange={(e) => setEducation(e.target.value)} rows={2} cols={30} />
+          </div>
+          <div className="col-12 lg:col-6 md:col-6">Career</div>
+          <div className="col-12 lg:col-6 md:col-6">
+          <InputTextarea autoResize value={career} onChange={(e) => setCareer(e.target.value)} rows={3} cols={30} />
+          </div>
+      </div>
+      <div className="col-12 lg:col-8 md:col-8">
+        <Button onClick={() => { props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+        <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
+      </div>
+      </div>
+    </div>
+  )
 }
 
 const EditCriticalInfo = (props) => {
@@ -100,44 +149,47 @@ const EditCriticalInfo = (props) => {
   )
 }
 
+const EditContainer = (props)=>{
+  return (
+    <div style={{ "marginLeft": "20px", "marginBottom": "10px" }}>
+    <div><div className='text-pink-600' style={{ "float": "left" }}>{props.header}</div>
+      <div style={{ "float": "right" }}>
+        <Button onClick={() => { props.toggle(true) }} label="Edit" severity="danger" text />
+      </div>
+    </div>
+    <br />
+    {props.children}
+  </div>
+  )
+}
 
 const EditProfile = () => {
   const [editBasicInfoToggle, setEditBasicInfoToggle] = useState(false);
   const [editCriticalInfoToggle, setEditCriticalInfoToggle] = useState(false);
+  const [editAboutMeToggle,setEditAboutMeToggle] = useState(false);
 
   return (
     <div className="grid" style={{ "width": "100%" }}>
       <div className="col-12 lg:col-3 md:col-3 "></div>
       <div className="col-12 lg:col-6 md:col-6">
         <Panel header="Edit Profile">
-          <div style={{ "marginLeft": "20px", "marginBottom": "10px" }}>
-            <div><div className='text-pink-600' style={{ "float": "left" }}>Basic Information</div><div style={{ "float": "right" }}>
-              <Button onClick={() => { setEditBasicInfoToggle(true) }} label="Edit" severity="danger" text />
-            </div>
-            </div>
-            <br />
+          <EditContainer toggle={setEditBasicInfoToggle} header="Basic Information">
             {!editBasicInfoToggle ? <ShowBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} /> : <EditBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} />}
-          </div>
-          <div style={{ "marginLeft": "20px", "marginBottom": "10px" }}>
-            <div><div className='text-pink-600' style={{ "float": "left" }}>Critical Information</div><div style={{ "float": "right" }}>
-              <Button onClick={() => { setEditCriticalInfoToggle(true) }} label="Edit" severity="danger" text />
-            </div>
-            </div>
-            <br />
+          </EditContainer>
+
+          <EditContainer toggle={setEditCriticalInfoToggle} header="Critical Information">
             {!editCriticalInfoToggle ? <ShowCriticalInfo /> : <EditCriticalInfo toggle={setEditCriticalInfoToggle} />}
-          </div>
+          </EditContainer>
+          <EditContainer toggle={setEditAboutMeToggle} header="About me">
+            {!editAboutMeToggle ? <ShowAboutMe /> : <EditAboutMe toggle={setEditAboutMeToggle} />}
+          </EditContainer> 
         </Panel>
-        {/* <Panel header="About Me">
-          <p className="m-0">
-            about me, my family, about education, my career
-          </p>
-        </Panel>
-        <Panel header="Education & Career">
+        {/* <Panel header="Education & Career">
           <p className="m-0">
             School, college, diploma, degree, employment details, organization name
           </p>
-        </Panel>
-        <Panel header="Family Details">
+        </Panel> */}
+        {/* <Panel header="Family Details">
           <p className="m-0">
             Mothers occupation, Fathers occupation, sister, brother
             Family Income
