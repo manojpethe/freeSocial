@@ -6,14 +6,18 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { useDispatch } from 'react-redux';
+import { updateData, clearData } from '../redux/userProfile';
+import { useSelector } from 'react-redux'
 
-let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
+// let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
 
-const ShowBasicInfo = () => {
+const ShowBasicInfo = (props) => {
+  const userProfile = props.userProfile.data;
   return (<div>
     <div><br />
       <div className="grid" style={{ "width": "100%" }}>
-        <div className="col-12 lg:col-12 md:col-12">Full Name</div>
+        <div className="col-12 lg:col-12 md:col-12">Full Name<br/>{userProfile?.fullName}</div>
         <div className="col-6 lg:col-6 md:col-6">Height</div>
         <div className="col-6 lg:col-6 md:col-6">Religion</div>
         <div className="col-6 lg:col-6 md:col-6">Mother Tongue</div>
@@ -27,12 +31,16 @@ const ShowBasicInfo = () => {
 }
 
 const EditBasicInfo = (props) => {
+  const dispatch = useDispatch();
+  const [fullName, setFullName] = useState("");
+  const [gender, setGender] = useState("");
+
   return (<div>
     <div className="grid" style={{ "width": "100%" }}>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }} >Full Name</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><InputText value={fullName} onChange={(e)=>{setFullName(e.target.value)}} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Gender</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><InputText value={gender} onChange={(e)=>{setGender(e.target.value)}} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Height</div>
       <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Religion</div>
@@ -51,7 +59,7 @@ const EditBasicInfo = (props) => {
       <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
       <div className="col-12 lg:col-8 md:col-8">
-        <Button onClick={() => { props.setEditBasicInfoToggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+        <Button onClick={() => { dispatch(updateData({fullName,gender}));  props.setEditBasicInfoToggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
         <Button onClick={() => { props.setEditBasicInfoToggle(false) }} label='Cancel' severity='secondary' />
       </div>
     </div>
@@ -165,6 +173,7 @@ const EditContainer = (props)=>{
 }
 
 const EditProfile = () => {
+  const userProfile = useSelector((state) => state.userProfile);
   const [editBasicInfoToggle, setEditBasicInfoToggle] = useState(false);
   const [editCriticalInfoToggle, setEditCriticalInfoToggle] = useState(false);
   const [editAboutMeToggle,setEditAboutMeToggle] = useState(false);
@@ -175,9 +184,8 @@ const EditProfile = () => {
       <div className="col-12 lg:col-6 md:col-6">
         <Panel header="Edit Profile">
           <EditContainer toggle={setEditBasicInfoToggle} header="Basic Information">
-            {!editBasicInfoToggle ? <ShowBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} /> : <EditBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} />}
+            {!editBasicInfoToggle ? <ShowBasicInfo userProfile={userProfile} setEditBasicInfoToggle={setEditBasicInfoToggle} /> : <EditBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} />}
           </EditContainer>
-
           <EditContainer toggle={setEditCriticalInfoToggle} header="Critical Information">
             {!editCriticalInfoToggle ? <ShowCriticalInfo /> : <EditCriticalInfo toggle={setEditCriticalInfoToggle} />}
           </EditContainer>
