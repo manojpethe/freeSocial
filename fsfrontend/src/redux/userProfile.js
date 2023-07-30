@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   data: {
     fullName: "Chris Hemsworth",
+    gender:"Male",
     religion:"Christian",
     motherTongue:"English",
     height:"6.2",
@@ -22,7 +23,7 @@ export const userProfileSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.data = {...action.payload}
+      state.data = { ...state.data , ...action.payload}
     },
     clearData: (state) => {
       state.data = {}
