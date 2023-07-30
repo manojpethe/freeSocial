@@ -39,14 +39,14 @@ const ShowBasicInfo = (props) => {
     <div><br />
       <div className="grid" style={{ "width": "100%" }}>
         <div className="col-12 lg:col-12 md:col-12">Full Name<br />{userProfile?.fullName}</div>
-        <div className="col-6 lg:col-6 md:col-6">Height <br/>{userProfile?.height}</div>
-        <div className="col-6 lg:col-6 md:col-6">Religion<br/>{userProfile?.religion}</div>
-        <div className="col-6 lg:col-6 md:col-6">Mother Tongue<br/>{userProfile?.motherTongue}</div>
-        <div className="col-6 lg:col-6 md:col-6">Annual Income<br/>{userProfile?.annualIncome}</div>
-        <div className="col-6 lg:col-6 md:col-6">Location <br/>{userProfile?.location}</div>
-        <div className="col-6 lg:col-6 md:col-6">Religion<br/>{userProfile?.religion}</div>
-        <div className="col-6 lg:col-6 md:col-6">Caste<br/>{userProfile?.caste}</div>
-        <div className="col-6 lg:col-6 md:col-6">Profile Managed by<br/>{userProfile?.managedBy}</div>
+        <div className="col-6 lg:col-6 md:col-6">Height <br />{userProfile?.height}</div>
+        <div className="col-6 lg:col-6 md:col-6">Religion<br />{userProfile?.religion}</div>
+        <div className="col-6 lg:col-6 md:col-6">Mother Tongue<br />{userProfile?.motherTongue}</div>
+        <div className="col-6 lg:col-6 md:col-6">Annual Income<br />{userProfile?.annualIncome}</div>
+        <div className="col-6 lg:col-6 md:col-6">Location <br />{userProfile?.location}</div>
+        <div className="col-6 lg:col-6 md:col-6">Religion<br />{userProfile?.religion}</div>
+        <div className="col-6 lg:col-6 md:col-6">Caste<br />{userProfile?.caste}</div>
+        <div className="col-6 lg:col-6 md:col-6">Profile Managed by<br />{userProfile?.managedBy}</div>
       </div>
     </div>
   </div>)
@@ -58,7 +58,8 @@ const EditBasicInfo = (props) => {
   const [fullName, setFullName] = useState(userProfile.fullName || "");
   const [gender, setGender] = useState(userProfile.gender || "Male");
   const [religion, setReligion] = useState(userProfile.religion || "Hindu");
-  console.log(religion);
+  const [motherTongue, setMotherTongue] = useState(userProfile.motherTongue || "Hindi");
+  console.log(motherTongue);
 
   return (<div>
     <div className="grid" style={{ "width": "100%" }}>
@@ -71,7 +72,7 @@ const EditBasicInfo = (props) => {
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Religion</div>
       <div className="col-12 lg:col-8 md:col-8"><EditReligion religion={religion} setReligion={setReligion} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Mother Tongue</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><EditMotherTongue motherTongue={motherTongue} setMotherTongue={setMotherTongue} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Caste</div>
       <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Country</div>
@@ -170,7 +171,7 @@ const EditReligion = (props) => {
     { name: 'No Religion', code: 'No Religion' },
   ];
 
-  const handleReligion =(selectReligion)=>{
+  const handleReligion = (selectReligion) => {
     setReligion(selectReligion.code);
     setSelectedReligion(selectReligion);
   }
@@ -179,6 +180,40 @@ const EditReligion = (props) => {
     <>
       <Dropdown value={selectedReligion} onChange={(e) => handleReligion(e.value)} options={religionOptions} optionLabel="name"
         placeholder="Select Religion" className="w-full" style={{ "width": "100%" }} />
+    </>
+  )
+}
+
+
+const EditMotherTongue = (props) => {
+  const motherTongue = props.motherTongue;
+  const setMotherTongue = props.setMotherTongue;
+  const [selectedLanguage, setSelectedLanguage] = useState({ name: (motherTongue || 'Hindi'), code: (motherTongue || 'English') });
+  const languageOptions = [
+    { name: 'English', code: 'English' },
+    { name: 'Sindhi', code: 'Sindhi' },
+    { name: 'Pahadi', code: 'Pahadi' },
+    { name: 'Hindi', code: 'Hindi' },
+    { name: 'Marathi', code: 'Marathi' },
+    { name: 'Bangali', code: 'Bangali' },
+    { name: 'Gujarati', code: 'Gujarati' },
+    { name: 'Kannada', code: 'Kannada' },
+    { name: 'Telugu', code: 'Telugu' },
+    { name: 'Tulu', code: 'Tulu' },
+    { name: 'Malyali', code: 'Malyali' },
+    { name: 'Tamil', code: 'Tamil' },
+  ];
+
+
+  const handleLanguage = (selectLanguage) => {
+    setMotherTongue(selectLanguage.code);
+    setSelectedLanguage(selectLanguage);
+  }
+
+  return (
+    <>
+      <Dropdown value={selectedLanguage} onChange={(e) => handleLanguage(e.value)} options={languageOptions} optionLabel="name"
+        placeholder="Select Language" className="w-full" style={{ "width": "100%" }} />
     </>
   )
 }
