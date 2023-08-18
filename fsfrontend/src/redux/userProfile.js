@@ -14,7 +14,11 @@ const initialState = {
     criticalInfo:{
       maritalStatus: "Unmarried",
       birthDate: "01/01/1990"
-    }
+    },
+    aboutMe:"I am an Actor",
+    family:"We are from Australia and based in las vegas for last 15 years due to career",
+    education:"Bachelors",
+    career:"I wish to continue with the current career"
   },
 }
 

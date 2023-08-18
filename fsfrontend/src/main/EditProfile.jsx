@@ -116,25 +116,27 @@ const ShowCriticalInfo = (props) => {
 }
 
 
-const ShowAboutMe = () => {
+const ShowAboutMe = (props) => {
+  const userProfile = props.userProfile.data;
   return (<div>
     <div><br />
       <div className="grid" style={{ "width": "100%" }}>
-        {/* <div className="col-6 lg:col-6 md:col-6">about me, my family, about education, my career</div> */}
-        <div className="col-12 lg:col-6 md:col-6">About Me</div>
-        <div className="col-12 lg:col-6 md:col-6">My Family</div>
-        <div className="col-12 lg:col-6 md:col-6">Education</div>
-        <div className="col-12 lg:col-6 md:col-6">Background</div>
+        <div className="col-12 lg:col-6 md:col-6">About Me<br/>{userProfile.aboutMe}</div>
+        <div className="col-12 lg:col-6 md:col-6">My Family<br/>{userProfile.family}</div>
+        <div className="col-12 lg:col-6 md:col-6">Education<br/>{userProfile.education}</div>
+        <div className="col-12 lg:col-6 md:col-6">Career<br/>{userProfile.career}</div>
       </div>
     </div>
   </div>)
 }
 
 const EditAboutMe = (props) => {
-  const [aboutMe, setAboutMe] = useState("");
-  const [aboutFamily, setAboutFamily] = useState("");
-  const [education, setEducation] = useState("");
-  const [career, setCareer] = useState("");
+  const dispatch = useDispatch();
+  const userProfile = useSelector((state) => state.userProfile.data);
+  const [aboutMe, setAboutMe] = useState(userProfile.aboutMe || "");
+  const [family, setfamily] = useState(userProfile.family || "");
+  const [education, setEducation] = useState(userProfile.education || "");
+  const [career, setCareer] = useState(userProfile.career || "");
 
   return (
     <div>
@@ -142,23 +144,23 @@ const EditAboutMe = (props) => {
         <div className="grid" style={{ "width": "100%" }}>
           <div className="col-12 lg:col-6 md:col-6">About Me</div>
           <div className="col-12 lg:col-6 md:col-6">
-            <InputTextarea autoResize value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} rows={5} cols={30} />
+            <InputTextarea autoResize value={aboutMe} onChange={(e) => setAboutMe(e.target.value)} rows={2} cols={20} />
           </div>
           <div className="col-12 lg:col-6 md:col-6">About Family</div>
           <div className="col-12 lg:col-6 md:col-6">
-            <InputTextarea autoResize value={aboutFamily} onChange={(e) => setAboutFamily(e.target.value)} rows={2} cols={30} />
+            <InputTextarea autoResize value={family} onChange={(e) => setfamily(e.target.value)} rows={2} cols={20} />
           </div>
           <div className="col-12 lg:col-6 md:col-6">Education</div>
           <div className="col-12 lg:col-6 md:col-6">
-            <InputTextarea autoResize value={education} onChange={(e) => setEducation(e.target.value)} rows={2} cols={30} />
+            <InputTextarea autoResize value={education} onChange={(e) => setEducation(e.target.value)} rows={2} cols={20} />
           </div>
           <div className="col-12 lg:col-6 md:col-6">Career</div>
           <div className="col-12 lg:col-6 md:col-6">
-            <InputTextarea autoResize value={career} onChange={(e) => setCareer(e.target.value)} rows={3} cols={30} />
+            <InputTextarea autoResize value={career} onChange={(e) => setCareer(e.target.value)} rows={2} cols={20} />
           </div>
           <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
           <div className="col-12 lg:col-8 md:col-8">
-            <Button onClick={() => { props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+            <Button onClick={() => { dispatch(updateData({ aboutMe,family,education,career })); props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
             <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
           </div>
         </div>
@@ -297,7 +299,7 @@ const EditProfile = () => {
             {!editCriticalInfoToggle ? <ShowCriticalInfo userProfile={userProfile} /> : <EditCriticalInfo toggle={setEditCriticalInfoToggle} />}
           </EditContainer>
           <EditContainer toggle={setEditAboutMeToggle} header="About me">
-            {!editAboutMeToggle ? <ShowAboutMe /> : <EditAboutMe toggle={setEditAboutMeToggle} />}
+            {!editAboutMeToggle ? <ShowAboutMe userProfile={userProfile} /> : <EditAboutMe userProfile={userProfile} toggle={setEditAboutMeToggle} />}
           </EditContainer>
         </Panel>
         {/* <Panel header="Education & Career">
