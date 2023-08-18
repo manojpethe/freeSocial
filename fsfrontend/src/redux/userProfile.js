@@ -27,7 +27,7 @@ export const userProfileSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      console.log("Redux: updateData",action.payload);
+      // console.log("Redux: updateData",action.payload);
       state.data = { ...state.data , ...action.payload}
     },
     clearData: (state) => {

@@ -100,7 +100,7 @@ const EditBasicInfo = (props) => {
 }
 
 const ShowCriticalInfo = (props) => {
-  console.log(props?.userProfile.data.criticalInfo);
+  // console.log(props?.userProfile.data.criticalInfo);
   const criticalInfo = props?.userProfile.data.criticalInfo;
 
   return (<div>
@@ -242,7 +242,6 @@ const EditCriticalInfo = (props) => {
 
   const submitData =()=>{
     const item = {criticalInfo:{maritalStatus: maritalStatus.name, birthDate: getDatemmddyyyy(birthDate)}};
-    console.log(item,userProfile.data.criticalInfo);
     dispatch(updateData(item));
   }
 
