@@ -13,6 +13,11 @@ import { useSelector } from 'react-redux'
 
 // let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
 
+
+const getDatemmddyyyy =(inputdate)=> {
+  return (inputdate.getMonth()+1)+"/"+inputdate.getDate()+"/"+inputdate.getYear() ;
+}
+
 const GenderOptions = (props) => {
   const gender = props.gender;
   const setGender = props.setGender;
@@ -44,7 +49,6 @@ const ShowBasicInfo = (props) => {
         <div className="col-6 lg:col-6 md:col-6">Mother Tongue<br />{userProfile?.motherTongue}</div>
         <div className="col-6 lg:col-6 md:col-6">Annual Income<br />{userProfile?.annualIncome}</div>
         <div className="col-6 lg:col-6 md:col-6">Location <br />{userProfile?.location}</div>
-        <div className="col-6 lg:col-6 md:col-6">Religion<br />{userProfile?.religion}</div>
         <div className="col-6 lg:col-6 md:col-6">Caste<br />{userProfile?.caste}</div>
         <div className="col-6 lg:col-6 md:col-6">Profile Managed by<br />{userProfile?.managedBy}</div>
       </div>
@@ -59,7 +63,11 @@ const EditBasicInfo = (props) => {
   const [gender, setGender] = useState(userProfile.gender || "Male");
   const [religion, setReligion] = useState(userProfile.religion || "Hindu");
   const [motherTongue, setMotherTongue] = useState(userProfile.motherTongue || "Hindi");
-  console.log(motherTongue);
+  const [height, setHeight] = useState(userProfile.height || "5.10");
+  const [annualIncome, setAnnualIncome] = useState(userProfile.annualIncome || "15L");
+  const [location, setLocation] = useState(userProfile.location || "San Francisco, USA");
+  const [caste, setCaste] = useState(userProfile.caste|| "Vaishya");
+  const [managedBy, setManagedBy] = useState(userProfile.managedBy|| "Mother");
 
   return (<div>
     <div className="grid" style={{ "width": "100%" }}>
@@ -68,24 +76,22 @@ const EditBasicInfo = (props) => {
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Gender</div>
       <div className="col-12 lg:col-8 md:col-8"><GenderOptions gender={gender} setGender={setGender} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Height</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><InputText value={height} onChange={(e) => { setHeight(e.target.value) }} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Religion</div>
       <div className="col-12 lg:col-8 md:col-8"><EditReligion religion={religion} setReligion={setReligion} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Mother Tongue</div>
       <div className="col-12 lg:col-8 md:col-8"><EditMotherTongue motherTongue={motherTongue} setMotherTongue={setMotherTongue} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Caste</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
-      <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Country</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
-      <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>City</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><InputText value={caste} onChange={(e) => { setCaste(e.target.value) }} style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Location</div>
+      <div className="col-12 lg:col-8 md:col-8"><InputText value={location} onChange={(e) => { setLocation(e.target.value) }} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Annual Income</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><InputText value={annualIncome} onChange={(e) => { setAnnualIncome(e.target.value) }} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Profile Managed by</div>
-      <div className="col-12 lg:col-8 md:col-8"><InputText style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-8 md:col-8"><InputText value={managedBy} onChange={(e) => { setManagedBy(e.target.value) }} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
       <div className="col-12 lg:col-8 md:col-8">
-        <Button onClick={() => { dispatch(updateData({ fullName, gender })); props.setEditBasicInfoToggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+        <Button onClick={() => { dispatch(updateData({ fullName, gender, height, religion, motherTongue, caste, location, annualIncome,managedBy })); props.setEditBasicInfoToggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
         <Button onClick={() => { props.setEditBasicInfoToggle(false) }} label='Cancel' severity='secondary' />
       </div>
     </div>
@@ -93,12 +99,17 @@ const EditBasicInfo = (props) => {
   )
 }
 
-const ShowCriticalInfo = () => {
+const ShowCriticalInfo = (props) => {
+  console.log(props?.userProfile.data.criticalInfo);
+  const criticalInfo = props?.userProfile.data.criticalInfo;
+
   return (<div>
     <div><br />
       <div className="grid" style={{ "width": "100%" }}>
         <div className="col-6 lg:col-6 md:col-6">Birthdate</div>
+        <div className="col-6 lg:col-6 md:col-6">{criticalInfo.birthDate}</div>
         <div className="col-6 lg:col-6 md:col-6">Marital Status</div>
+        <div className="col-6 lg:col-6 md:col-6">{criticalInfo.maritalStatus}</div>
       </div>
     </div>
   </div>)
@@ -219,26 +230,35 @@ const EditMotherTongue = (props) => {
 }
 
 const EditCriticalInfo = (props) => {
-  const [martialStatus, setMaritalStatus] = useState('Unmarried');
+  const dispatch = useDispatch();
+  const userProfile = useSelector((state) => state.userProfile);
+  const [birthDate, setBirthDate] = useState( new Date(userProfile.data.criticalInfo?.birthDate) || new Date());
+  const [maritalStatus, setMaritalStatus] = useState({ name: (userProfile.data.criticalInfo?.maritalStatus|| 'Unmarried' ), code: (userProfile.data.criticalInfo?.maritalStatus|| 'Unmarried' )});
   const maritalStatusOptions = [
     { name: 'Unmarried', code: 'Unmarried' },
     { name: 'Divorce in progress', code: 'Divorce in progress' },
     { name: 'Divorced', code: 'Divorced' },
   ];
 
+  const submitData =()=>{
+    const item = {criticalInfo:{maritalStatus: maritalStatus.name, birthDate: getDatemmddyyyy(birthDate)}};
+    console.log(item,userProfile.data.criticalInfo);
+    dispatch(updateData(item));
+  }
+
   return (<div>
     <div className="grid" style={{ "width": "100%" }}>
-      <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }} >Birthdate</div>
-      <div className="col-12 lg:col-8 md:col-8"><Calendar /></div>
+      <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }} >Birthdate (MM-DD-YYYY)</div>
+      <div className="col-12 lg:col-8 md:col-8"><Calendar value={birthDate} onChange={ (e)=>{ setBirthDate(e.value) } } showIcon /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Marital Status</div>
       <div className="col-12 lg:col-8 md:col-8"><div className="card flex justify-content-center">
-        <Dropdown value={martialStatus} onChange={(e) => setMaritalStatus(e.value)} options={maritalStatusOptions} optionLabel="name"
+        <Dropdown value={maritalStatus} onChange={(e) => { setMaritalStatus(e.value)}} options={maritalStatusOptions} optionLabel="name"
           placeholder="Select marital Status" className="w-full" style={{ "width": "100%" }} />
       </div>
       </div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
       <div className="col-12 lg:col-8 md:col-8">
-        <Button onClick={() => { props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+        <Button onClick={() => { submitData(); props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
         <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
       </div>
     </div>
@@ -275,7 +295,7 @@ const EditProfile = () => {
             {!editBasicInfoToggle ? <ShowBasicInfo userProfile={userProfile} setEditBasicInfoToggle={setEditBasicInfoToggle} /> : <EditBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} />}
           </EditContainer>
           <EditContainer toggle={setEditCriticalInfoToggle} header="Critical Information">
-            {!editCriticalInfoToggle ? <ShowCriticalInfo /> : <EditCriticalInfo toggle={setEditCriticalInfoToggle} />}
+            {!editCriticalInfoToggle ? <ShowCriticalInfo userProfile={userProfile} /> : <EditCriticalInfo toggle={setEditCriticalInfoToggle} />}
           </EditContainer>
           <EditContainer toggle={setEditAboutMeToggle} header="About me">
             {!editAboutMeToggle ? <ShowAboutMe /> : <EditAboutMe toggle={setEditAboutMeToggle} />}

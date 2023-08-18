@@ -1,0 +1,15 @@
+$ vite
+Port 5173 is in use, trying another one...
+
+  VITE v4.3.9  ready in 1713 ms
+
+  ➜  Local:   http://localhost:5174/
+  ➜  Network: use --host to expose
+$ vite
+Port 5173 is in use, trying another one...
+Port 5174 is in use, trying another one...
+
+  VITE v4.3.9  ready in 1104 ms
+
+  ➜  Local:   http://localhost:5175/
+  ➜  Network: use --host to expose
