@@ -10,7 +10,11 @@ const Suggestions = () => {
 
   return (
     <>
-      { suggestions.map(item=>(<div key={item.profileId} className="col-6 lg:col-3 md:col-6"><img width="100%" src={item.img}/></div>))}
+      { suggestions.map(item=>(
+      <div key={item.profileId} style={{ height:"200px", overflow:"hidden", justifyContent:"center" }} className="col-6 lg:col-3 md:col-6">
+        <img width="100%" src={item.img}/>
+        <div>{item.profileId} {item.location}</div>
+      </div>))}
     </>
   )
 }
