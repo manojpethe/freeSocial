@@ -18,6 +18,7 @@ import Logout from './main/Logout';
 import ProtectedRoute from './home/ProtectedRoute';
 import AccountSettings from './main/AccountSettings';
 import BlockedIgnored from './main/BlockedIgnored';
+import ViewProfile from './main/ViewProfile';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="blockedIgnored" element={<ProtectedRoute><BlockedIgnored /></ProtectedRoute>} />
         <Route path="accountSettings" element={<ProtectedRoute><AccountSettings /></ProtectedRoute>} />
         <Route path="support" element={<ProtectedRoute><Help /></ProtectedRoute>} />
+        <Route path="viewprofile/:id" element={<ProtectedRoute><ViewProfile /></ProtectedRoute>} />
       </Route>
       <Route path="*" element={<div>404</div>} />
     </Routes>
