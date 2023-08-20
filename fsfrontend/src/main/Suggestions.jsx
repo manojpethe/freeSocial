@@ -16,7 +16,7 @@ const Suggestions = () => {
         // backgroundColor:"lightsalmon",
         justifyItems:"center"
          }} className="col-6 lg:col-3 md:col-6">
-        <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={item.img}/>
+        <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={profileImage}/>
         <div style={{width:"100%", textAlign:"center"}}>{item.profileId} {item.location}</div>
       </div>
       ))}
