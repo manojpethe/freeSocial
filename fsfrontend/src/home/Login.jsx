@@ -1,16 +1,39 @@
-// import React from 'react'
+import { useEffect } from 'react'
 import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { login } from '../redux/userInfo';
 
 
 import { Button } from "primereact/button"
 import { useNavigate } from 'react-router-dom';
 
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
 const Login = () => {
+  const UserInfo = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // const userInfoCookie = getCookie("userInfo");
+  // if(userInfoCookie){
+  //   dispatch(login(userInfoCookie));
+  //   navigate("/main/feed");
+  // }
+
+  useEffect(() => {
+    const userInfoCookie = getCookie("userInfo");
+    if(userInfoCookie){
+      dispatch(login(JSON.parse(userInfoCookie)));
+      navigate("/main/feed");
+    }
+  }, [])
+  
 
   const googleLogin = useGoogleLogin({
     onSuccess: async tokenResponse => {
@@ -23,6 +46,8 @@ const Login = () => {
         .then(res => res.data);
 
       console.log(userInfo);
+      // set the cookie once user logged in successfully 
+      document.cookie="userInfo="+JSON.stringify(userInfo)+"; ;max-age=172800; SameSite=Strict;";
       dispatch(login(userInfo));
       navigate("/main/feed")
     },
