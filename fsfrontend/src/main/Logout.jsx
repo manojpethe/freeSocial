@@ -11,6 +11,7 @@ const Logout = () => {
 
     const userLogout = () => {
         googleLogout();
+        document.cookie="userInfo=";
         dispatch(logout());
         navigate("/");
     }

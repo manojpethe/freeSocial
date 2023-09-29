@@ -19,6 +19,7 @@ import ProtectedRoute from './home/ProtectedRoute';
 import AccountSettings from './main/AccountSettings';
 import BlockedIgnored from './main/BlockedIgnored';
 import ViewProfile from './main/ViewProfile';
+import Signup from './main/Signup';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="contact" element={<Contact />} />
       </Route>
       <Route path="/main" element={<ProtectedRoute><Main /></ProtectedRoute>} >
+        <Route path="signup" element={<ProtectedRoute><Signup /></ProtectedRoute>} />
         <Route path="feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
         <Route path="editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
         <Route path="desiredPartner" element={<ProtectedRoute><DesiredPartner /></ProtectedRoute>} />

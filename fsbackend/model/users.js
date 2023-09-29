@@ -5,7 +5,7 @@ const Users = db.define("Users", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
-        allowNull: false,
+        allowNull: true,
         // primaryKey: true,
     },
     email: {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Panel } from 'primereact/panel';
 // import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
@@ -10,8 +10,29 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
+import axios from 'axios';
 
 // let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
+
+const emptyProfile = {
+  fullName: "",
+  gender:"",
+  religion:"",
+  motherTongue:"",
+  height:"",
+  annualIncome:"",
+  location:"",
+  caste:"",
+  managedBy:"",
+  criticalInfo:{
+    maritalStatus: "",
+    birthDate: ""
+  },
+  aboutMe:"",
+  family:"",
+  education:"",
+  career:""
+};
 
 
 const getDatemmddyyyy =(inputdate)=> {
@@ -282,10 +303,27 @@ const EditContainer = (props) => {
 }
 
 const EditProfile = () => {
+  const userInfo = useSelector((state) => state.userInfo.data);
   const userProfile = useSelector((state) => state.userProfile);
+  const dispatch = useDispatch();
   const [editBasicInfoToggle, setEditBasicInfoToggle] = useState(false);
   const [editCriticalInfoToggle, setEditCriticalInfoToggle] = useState(false);
   const [editAboutMeToggle, setEditAboutMeToggle] = useState(false);
+
+  useEffect(()=>{
+    console.log("Load Profile for the current user");
+    axios.get("http://localhost:3000/users?getUser="+userInfo.email)
+    .then(res=>{
+      console.log("Profile",res.data.user.profile);
+      if(!res.data.user.profile){
+        dispatch(updateData(emptyProfile));
+      } else {
+        dispatch(updateData(res.data.user.profile));
+      }
+    })
+    .catch(e=>{console.log("Something went Wrong!",e)})
+
+  },[]) 
 
   return (
     <div className="grid" style={{ "width": "100%" }}>

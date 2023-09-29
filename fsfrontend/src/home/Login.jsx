@@ -46,10 +46,25 @@ const Login = () => {
         .then(res => res.data);
 
       console.log(userInfo);
+      axios.get("http://localhost:3000/users?getUser="+userInfo.email)
+      .then(res=> { 
+        if(res.data.count){
+          console.log("User found");
+          document.cookie="userInfo="+JSON.stringify(userInfo)+"; ;max-age=172800; SameSite=Strict;";
+          dispatch(login(userInfo));
+          navigate("/main/feed");
+        } else{
+          console.log("user not registered.");
+          document.cookie="userInfo="+JSON.stringify(userInfo)+"; ;max-age=172800; SameSite=Strict;";
+          dispatch(login(userInfo));
+          navigate("/main/signup");
+        }
+       })
+      .catch((e)=>{ console.log(e) })
       // set the cookie once user logged in successfully 
-      document.cookie="userInfo="+JSON.stringify(userInfo)+"; ;max-age=172800; SameSite=Strict;";
-      dispatch(login(userInfo));
-      navigate("/main/feed")
+      // document.cookie="userInfo="+JSON.stringify(userInfo)+"; ;max-age=172800; SameSite=Strict;";
+      // dispatch(login(userInfo));
+      // navigate("/main/feed")
     },
     onError: async (error) => {
       console.log(error);
