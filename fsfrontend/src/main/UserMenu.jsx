@@ -66,6 +66,9 @@ const UserMenu = () => {
             <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={showAlerts}>
                 <i className="pi pi-bell" style={{ fontSize: '1.5rem' }} />
             </div>
+            <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={showAlerts}>
+                <i className="pi pi-comment" style={{ fontSize: '1.5rem' }} />
+            </div>
             <div>
                 <Avatar image={UserInfo?.data?.picture} shape="circle" />
             </div>
