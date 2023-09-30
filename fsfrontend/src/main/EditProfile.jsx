@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
 import axios from 'axios';
+import profileService from '../service/profileService';
 
 // let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
 
@@ -81,14 +82,14 @@ const EditBasicInfo = (props) => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile.data);
   const [fullName, setFullName] = useState(userProfile.fullName || "");
-  const [gender, setGender] = useState(userProfile.gender || "Male");
-  const [religion, setReligion] = useState(userProfile.religion || "Hindu");
-  const [motherTongue, setMotherTongue] = useState(userProfile.motherTongue || "Hindi");
-  const [height, setHeight] = useState(userProfile.height || "5.10");
-  const [annualIncome, setAnnualIncome] = useState(userProfile.annualIncome || "15L");
-  const [location, setLocation] = useState(userProfile.location || "San Francisco, USA");
-  const [caste, setCaste] = useState(userProfile.caste|| "Vaishya");
-  const [managedBy, setManagedBy] = useState(userProfile.managedBy|| "Mother");
+  const [gender, setGender] = useState(userProfile.gender || "");
+  const [religion, setReligion] = useState(userProfile.religion || "");
+  const [motherTongue, setMotherTongue] = useState(userProfile.motherTongue || "");
+  const [height, setHeight] = useState(userProfile.height || "");
+  const [annualIncome, setAnnualIncome] = useState(userProfile.annualIncome || "");
+  const [location, setLocation] = useState(userProfile.location || "");
+  const [caste, setCaste] = useState(userProfile.caste|| "");
+  const [managedBy, setManagedBy] = useState(userProfile.managedBy|| "");
 
   return (<div>
     <div className="grid" style={{ "width": "100%" }}>
@@ -154,6 +155,7 @@ const ShowAboutMe = (props) => {
 const EditAboutMe = (props) => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile.data);
+  const userInfo = useSelector((state) => state.userInfo.data);
   const [aboutMe, setAboutMe] = useState(userProfile.aboutMe || "");
   const [family, setfamily] = useState(userProfile.family || "");
   const [education, setEducation] = useState(userProfile.education || "");
@@ -181,7 +183,7 @@ const EditAboutMe = (props) => {
           </div>
           <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
           <div className="col-12 lg:col-8 md:col-8">
-            <Button onClick={() => { dispatch(updateData({ aboutMe,family,education,career })); props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+            <Button onClick={() => { dispatch(updateData(profileService(userInfo.email,{ ...userProfile, aboutMe,family,education,career }))); props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
             <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
           </div>
         </div>

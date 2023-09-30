@@ -14,7 +14,7 @@ const Signup = () => {
   // console.log(UserInfo);
 
   const handleRegistration = () => {
-    axios.post("http://localhost:3000/users",{email:UserInfo.email})
+    axios.post("http://localhost:3000/users?queryType=registerUser",{email:UserInfo.email})
     .then((res)=>{
       console.log(res);
       setStep(3);
