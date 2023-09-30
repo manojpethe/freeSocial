@@ -11,10 +11,8 @@ const initialState = {
     location:"Las Vegas",
     caste:"Cathlolic",
     managedBy:"Mother",
-    criticalInfo:{
-      maritalStatus: "Unmarried",
-      birthDate: "01/01/1990"
-    },
+    maritalStatus: "Unmarried",
+    birthDate: "01/01/1990",
     aboutMe:"I am an Actor",
     family:"We are from Australia and based in las vegas for last 15 years due to career",
     education:"Bachelors",

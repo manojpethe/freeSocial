@@ -35,12 +35,8 @@ router.post('/', async function(req, res, next) {
   if(req.query.queryType === "updateProfile"){
     console.log("User profile update",req.body);
     try{
-
       let result = await Users.update({ profile: req.body }, { where: { email: req.query.email }});
-
-      // let updatedProfile = { ...req.body};
-      // const result = await Users.update({profile:updatedProfile},{ where: {email:req.body.email} });
-      console.log("result:",result);
+      console.log("result:--------->",result);
       res.send(req.body).status(200).end();
     } catch(e){
       res.send(e);

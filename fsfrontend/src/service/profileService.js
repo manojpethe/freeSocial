@@ -1,16 +1,12 @@
 import axios from "axios";
 
-const profileService = (email,profileData,) => {
-    axios.post("http://localhost:3000/users?queryType=updateProfile&email="+email,profileData)
-    .then((res)=>{
-        console.log(res.data);
-        return res.data;
-    }
-    )
+const profileService = async (email,profileData,) => {
+    const response = await axios.post("http://localhost:3000/users?queryType=updateProfile&email="+email,profileData)
     .catch((e)=>{
         console.log("Something went wrong!:",e);
         return false;
     })
+    return response.data;
 }
 
 export default profileService;

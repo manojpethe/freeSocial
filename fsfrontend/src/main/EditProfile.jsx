@@ -25,10 +25,8 @@ const emptyProfile = {
   location:"",
   caste:"",
   managedBy:"",
-  criticalInfo:{
-    maritalStatus: "",
-    birthDate: ""
-  },
+  maritalStatus: "",
+  birthDate: "1/14/90",
   aboutMe:"",
   family:"",
   education:"",
@@ -73,6 +71,7 @@ const ShowBasicInfo = (props) => {
         <div className="col-6 lg:col-6 md:col-6">Location <br />{userProfile?.location}</div>
         <div className="col-6 lg:col-6 md:col-6">Caste<br />{userProfile?.caste}</div>
         <div className="col-6 lg:col-6 md:col-6">Profile Managed by<br />{userProfile?.managedBy}</div>
+        <div className="col-6 lg:col-6 md:col-6">Gender<br />{userProfile?.gender}</div>
       </div>
     </div>
   </div>)
@@ -81,6 +80,7 @@ const ShowBasicInfo = (props) => {
 const EditBasicInfo = (props) => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile.data);
+  const userInfo = useSelector((state) => state.userInfo.data);
   const [fullName, setFullName] = useState(userProfile.fullName || "");
   const [gender, setGender] = useState(userProfile.gender || "");
   const [religion, setReligion] = useState(userProfile.religion || "");
@@ -90,6 +90,11 @@ const EditBasicInfo = (props) => {
   const [location, setLocation] = useState(userProfile.location || "");
   const [caste, setCaste] = useState(userProfile.caste|| "");
   const [managedBy, setManagedBy] = useState(userProfile.managedBy|| "");
+
+  const handleUpdateBasicInfo = async ()=> {
+    const result = await profileService(userInfo.email,{ ...userProfile, fullName, gender, height, religion, motherTongue, caste, location, annualIncome,managedBy });
+    dispatch(updateData(result));
+  }
 
   return (<div>
     <div className="grid" style={{ "width": "100%" }}>
@@ -113,7 +118,7 @@ const EditBasicInfo = (props) => {
       <div className="col-12 lg:col-8 md:col-8"><InputText value={managedBy} onChange={(e) => { setManagedBy(e.target.value) }} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
       <div className="col-12 lg:col-8 md:col-8">
-        <Button onClick={() => { dispatch(updateData({ fullName, gender, height, religion, motherTongue, caste, location, annualIncome,managedBy })); props.setEditBasicInfoToggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+        <Button onClick={() => { handleUpdateBasicInfo(); props.setEditBasicInfoToggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
         <Button onClick={() => { props.setEditBasicInfoToggle(false) }} label='Cancel' severity='secondary' />
       </div>
     </div>
@@ -122,16 +127,15 @@ const EditBasicInfo = (props) => {
 }
 
 const ShowCriticalInfo = (props) => {
-  // console.log(props?.userProfile.data.criticalInfo);
-  const criticalInfo = props?.userProfile.data.criticalInfo;
+  const userProfile = props.userProfile.data;
 
   return (<div>
     <div><br />
       <div className="grid" style={{ "width": "100%" }}>
         <div className="col-6 lg:col-6 md:col-6">Birthdate</div>
-        <div className="col-6 lg:col-6 md:col-6">{criticalInfo.birthDate}</div>
+        <div className="col-6 lg:col-6 md:col-6">{userProfile.birthDate}</div>
         <div className="col-6 lg:col-6 md:col-6">Marital Status</div>
-        <div className="col-6 lg:col-6 md:col-6">{criticalInfo.maritalStatus}</div>
+        <div className="col-6 lg:col-6 md:col-6">{userProfile.maritalStatus}</div>
       </div>
     </div>
   </div>)
@@ -161,6 +165,11 @@ const EditAboutMe = (props) => {
   const [education, setEducation] = useState(userProfile.education || "");
   const [career, setCareer] = useState(userProfile.career || "");
 
+  const handleUpdateAboutMe = async () =>{
+    const result = await profileService(userInfo.email,{ ...userProfile, aboutMe,family,education,career });
+    dispatch(updateData(result));
+  }
+
   return (
     <div>
       <div><br />
@@ -183,7 +192,7 @@ const EditAboutMe = (props) => {
           </div>
           <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
           <div className="col-12 lg:col-8 md:col-8">
-            <Button onClick={() => { dispatch(updateData(profileService(userInfo.email,{ ...userProfile, aboutMe,family,education,career }))); props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+            <Button onClick={() => { handleUpdateAboutMe(); props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
             <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
           </div>
         </div>
@@ -195,7 +204,7 @@ const EditAboutMe = (props) => {
 const EditReligion = (props) => {
   const religion = props.religion;
   const setReligion = props.setReligion;
-  const [selectedReligion, setSelectedReligion] = useState({ name: (religion || 'Hindu'), code: (religion || 'Hindu') });
+  const [selectedReligion, setSelectedReligion] = useState({ name: (religion || 'undefined'), code: (religion || 'undefined') });
   const religionOptions = [
     { name: 'Hindu', code: 'Hindu' },
     { name: 'Sikh', code: 'Sikh' },
@@ -204,10 +213,11 @@ const EditReligion = (props) => {
     { name: 'Christian', code: 'Christian' },
     { name: 'Islam', code: 'Islam' },
     { name: 'Judaism', code: 'Judaism' },
-    { name: 'No Religion', code: 'No Religion' },
+    { name: 'undefined', code: 'undefined' },
   ];
 
   const handleReligion = (selectReligion) => {
+    console.log("selectReligion",selectReligion);
     setReligion(selectReligion.code);
     setSelectedReligion(selectReligion);
   }
@@ -256,18 +266,19 @@ const EditMotherTongue = (props) => {
 
 const EditCriticalInfo = (props) => {
   const dispatch = useDispatch();
-  const userProfile = useSelector((state) => state.userProfile);
-  const [birthDate, setBirthDate] = useState( new Date(userProfile.data.criticalInfo?.birthDate) || new Date());
-  const [maritalStatus, setMaritalStatus] = useState({ name: (userProfile.data.criticalInfo?.maritalStatus|| 'Unmarried' ), code: (userProfile.data.criticalInfo?.maritalStatus|| 'Unmarried' )});
+  const userProfile = useSelector((state) => state.userProfile.data);
+  const userInfo = useSelector((state) => state.userInfo.data);
+  const [birthDate, setBirthDate] = useState( new Date(userProfile.birthDate) || '1/1/90');
+  const [maritalStatus, setMaritalStatus] = useState({ name: (userProfile.maritalStatus|| 'Unmarried' ), code: (userProfile.maritalStatus|| 'Unmarried' )});
   const maritalStatusOptions = [
     { name: 'Unmarried', code: 'Unmarried' },
     { name: 'Divorce in progress', code: 'Divorce in progress' },
     { name: 'Divorced', code: 'Divorced' },
   ];
 
-  const submitData =()=>{
-    const item = {criticalInfo:{maritalStatus: maritalStatus.name, birthDate: getDatemmddyyyy(birthDate)}};
-    dispatch(updateData(item));
+  const handleUpdateCriticalInfo = async()=> {
+    const result = await profileService(userInfo.email,{ ...props.userProfile.data, maritalStatus: maritalStatus.name, birthDate: getDatemmddyyyy(birthDate)});
+    dispatch(updateData(result));
   }
 
   return (<div>
@@ -282,7 +293,7 @@ const EditCriticalInfo = (props) => {
       </div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "right" }}></div>
       <div className="col-12 lg:col-8 md:col-8">
-        <Button onClick={() => { submitData(); props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
+        <Button onClick={() => { handleUpdateCriticalInfo(); props.toggle(false) }} label='&nbsp;Save&nbsp;' severity='danger' />&nbsp;
         <Button onClick={() => { props.toggle(false) }} label='Cancel' severity='secondary' />
       </div>
     </div>
@@ -336,7 +347,7 @@ const EditProfile = () => {
             {!editBasicInfoToggle ? <ShowBasicInfo userProfile={userProfile} setEditBasicInfoToggle={setEditBasicInfoToggle} /> : <EditBasicInfo setEditBasicInfoToggle={setEditBasicInfoToggle} />}
           </EditContainer>
           <EditContainer toggle={setEditCriticalInfoToggle} header="Critical Information">
-            {!editCriticalInfoToggle ? <ShowCriticalInfo userProfile={userProfile} /> : <EditCriticalInfo toggle={setEditCriticalInfoToggle} />}
+            {!editCriticalInfoToggle ? <ShowCriticalInfo userProfile={userProfile} /> : <EditCriticalInfo userProfile={userProfile} toggle={setEditCriticalInfoToggle} />}
           </EditContainer>
           <EditContainer toggle={setEditAboutMeToggle} header="About me">
             {!editAboutMeToggle ? <ShowAboutMe userProfile={userProfile} /> : <EditAboutMe userProfile={userProfile} toggle={setEditAboutMeToggle} />}
