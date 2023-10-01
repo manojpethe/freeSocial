@@ -30,13 +30,14 @@ router.post('/', async function(req, res, next) {
             req.files.fileUploadClient.mv('./public/filestorage/'+fileName);
             filesUploadedByUser.push(fileName);
         }
+        let result = await Users.update({ album: filesUploadedByUser }, { where: { email: req.query.email }});
+        console.log(result);
     }catch(e){
+        res.send(e).status(503).end();
         console.log(e);
     }
     console.log(filesUploadedByUser);
-    let result = await Users.update({ album: filesUploadedByUser }, { where: { email: req.query.email }});
-    console.log(result);
-    res.send({message:"OK"}).status(200).end();
+    res.send({message:"Upload:OK"}).status(201).end();
 });
 
 module.exports = router;
