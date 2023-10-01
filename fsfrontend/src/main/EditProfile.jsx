@@ -7,6 +7,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
 import { RadioButton } from 'primereact/radiobutton';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { FileUpload } from 'primereact/fileupload';
 import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
@@ -352,6 +353,16 @@ const EditProfile = () => {
           <EditContainer toggle={setEditAboutMeToggle} header="About me">
             {!editAboutMeToggle ? <ShowAboutMe userProfile={userProfile} /> : <EditAboutMe userProfile={userProfile} toggle={setEditAboutMeToggle} />}
           </EditContainer>
+        </Panel>
+        <Panel header="Upload photos">
+        <FileUpload 
+          name="fileUploadClient" 
+          url={'http://localhost:3000/fileUpload?email='+userInfo.email} 
+          multiple 
+          accept="image/*" 
+          maxFileSize={1000000} 
+          emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} 
+        />
         </Panel>
         {/* <Panel header="Education & Career">
           <p className="m-0">

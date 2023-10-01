@@ -25,6 +25,10 @@ const Users = db.define("Users", {
         type: Sequelize.JSON,
         allowNull: true,
     },
+    album: {
+        type: Sequelize.JSON,
+        allowNull: true,
+    },
 });
 
 module.exports = Users;

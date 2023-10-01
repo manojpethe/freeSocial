@@ -3,6 +3,7 @@ import profileService from '../service/profileService';
 import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { Button } from 'primereact/button';
+import { FileUpload } from 'primereact/fileupload';
 
 const Help = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,8 @@ const dummyProfile = {
     <div>
     <div>This is a Help Page</div>
     <Button onClick={uploadProfile}>Update Profile</Button>
+    <p/>
+    <FileUpload name="fileUploadClient" url={'http://localhost:3000/fileUpload?email=manoj.pethe@gmail.com'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
     </div>
   )
 }
