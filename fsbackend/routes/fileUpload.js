@@ -34,6 +34,8 @@ router.post('/', async function(req, res, next) {
         console.log(e);
     }
     console.log(filesUploadedByUser);
+    let result = await Users.update({ album: filesUploadedByUser }, { where: { email: req.query.email }});
+    console.log(result);
     res.send({message:"OK"}).status(200).end();
 });
 
