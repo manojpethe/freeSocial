@@ -1,23 +1,63 @@
-import React from 'react'
-import { useDispatch,useSelector } from 'react-redux';
+import { useState, useEffect} from 'react'
 import { useParams,useNavigate  } from 'react-router-dom'
 import { Button } from 'primereact/button';
-import profileImage from '../assets/img/merlyn.jpg'
+import { Panel } from 'primereact/panel';
+import { Toast } from 'primereact/toast';
+// import profileImage from '../assets/img/merlyn.jpg'
+import userService from '../service/userService';
+import { requestConnection } from '../service/connectionService';
 
 const ViewProfile = (props) => {
-  const suggestions = useSelector((state) => state.suggestions.data);
-  const userProfile = useSelector((state) => state.userProfile.data);
   const params = useParams();
   const navigate = useNavigate();
+  const[profile, setProfile] = useState({});
+  const[album, setAlbum] = useState({});
+
+  useEffect(() => {
+    getProfile(params.id);
+  }, [])
+
+  const getProfile =  async (email)=> {
+    const response = await userService(email);
+    setProfile(response.user.profile);
+    setAlbum(response.user.album);
+    console.log(response.user.profile,response.user.album);
+  }
+
+  const sendFriendRequest = async ()=> {
+    const response = await requestConnection(profile.id);
+    console.log(response);
+  }
+  
   return (
   <>
-    <center>
-      <div>viewProfile component </div>
-      <div>ProfileId: {params.id}</div>
-      <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={profileImage}/>
+    <div className="col-12 lg:col-6 md:col-6">
+    <Panel>
+      <div style={{textAlign:"start"}}>
+      <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={"http://localhost:3000/filestorage/"+album[0]}/>
       <br/>
-      <Button onClick={()=>{ navigate(-1)}}>....more suggestions</Button>
-    </center>
+      <center>
+      <Button onClick={()=>{ sendFriendRequest() }} icon="pi pi-arrow-up" outlined label=" Send Interest"/> 
+      &nbsp;<Button icon="pi pi-whatsapp" outlined label="Chat"/>
+      </center>
+      <br/>
+      <div>Name:{profile.fullName} Height: {profile.height}</div>
+      <div>Location:{profile.location} Age: {profile.birthDate}</div><br/>
+      <div>Status:{profile.maritalStatus}</div>
+      <div>Mother Tongue:{profile.motherTongue}</div>
+      <div>Caste:{profile.caste} Religion:{profile.religion}</div>
+      <p/>
+      <div>About Me:<br/>{profile.aboutMe}</div><br/>
+      <div>Education:<br/>{profile.education}</div><br/>
+      <div>Career:<br/>{profile.career}</div><br/>
+      <div>Family:<br/>{profile.family}</div><br/>
+      <br/>
+      </div>
+      <center>
+        <Button severity="secondary" text raised onClick={()=>{ navigate(-1)}}>....back</Button>
+      </center>
+      </Panel>
+      </div>
     </>
   )
 }

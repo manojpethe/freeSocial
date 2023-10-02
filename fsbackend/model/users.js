@@ -6,12 +6,12 @@ const Users = db.define("Users", {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: true,
-        // primaryKey: true,
+        primaryKey: true,
     },
     email: {
         type: Sequelize.STRING,
         allowNull: false,
-        primaryKey: true,
+        // primaryKey: true,
     },
     active: {
         type: Sequelize.BOOLEAN,

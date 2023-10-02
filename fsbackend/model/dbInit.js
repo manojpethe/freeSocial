@@ -1,6 +1,6 @@
 const db = require("./database");
-
 const Users = require("./users");
+const Connection = require("./connection");
 
 // Customer.hasMany(Order);
 
