@@ -36,7 +36,7 @@ const Suggestions = () => {
         justifyItems:"center"
          }} className="col-6 lg:col-3 md:col-6">
         <Link to={"../viewprofile/"+item.email}>
-          <img style={{ opacity:"20%", marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={"http://localhost:3000/filestorage/"+JSON.parse(item.album)[0]}/>
+          <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={"http://localhost:3000/filestorage/"+JSON.parse(item.album)[0]}/>
           <div style={{width:"100%", textAlign:"center"}}>{JSON.parse(item.profile).fullName},{JSON.parse(item.profile).location}</div>
         </Link>
       </div>

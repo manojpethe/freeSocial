@@ -12,6 +12,7 @@ const ViewProfile = (props) => {
   const navigate = useNavigate();
   const[profile, setProfile] = useState({});
   const[album, setAlbum] = useState({});
+  const[profileId, setProfileId] = useState(0);
 
   useEffect(() => {
     getProfile(params.id);
@@ -21,11 +22,12 @@ const ViewProfile = (props) => {
     const response = await userService(email);
     setProfile(response.user.profile);
     setAlbum(response.user.album);
+    setProfileId(response.user.id);
     console.log(response.user.profile,response.user.album);
   }
 
   const sendFriendRequest = async ()=> {
-    const response = await requestConnection(profile.id);
+    const response = await requestConnection(profileId);
     console.log(response);
   }
   
