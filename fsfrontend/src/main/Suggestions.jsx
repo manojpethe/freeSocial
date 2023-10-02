@@ -1,25 +1,43 @@
-// import { useDispatch } from 'react-redux';
-// import { updateData } from '../redux/suggestions';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import { loadData } from '../redux/suggestions';
+
 import profileImage from '../assets/img/merlyn.jpg'
 import { Link } from "react-router-dom";
+import suggestionsService from '../service/suggestionsService';
 
 const Suggestions = () => {
+  const dispatch = useDispatch();
   const suggestions = useSelector((state) => state.suggestions.data);
+  const userProfile = useSelector((state) => state.userProfile.data);
+
+  console.log(suggestions);
+
+  useEffect( () => {
+    getSuggestions();
+    console.log("doing nothing...");
+  }, [])
   
+  const getSuggestions = async () =>{
+    const result = await suggestionsService(userProfile.gender);
+    // console.log(result);
+    dispatch(loadData(result));
+  }
+
+// http://localhost:3000/filestorage/manoj.pethe@gmail.com/manojpethe.jpg
 
   return (
     <>
       { suggestions.map(item=>(
-      <div key={item.profileId} 
+      <div key={item.email} 
         style={{ 
         overflow:"hidden",
         // backgroundColor:"lightsalmon",
         justifyItems:"center"
          }} className="col-6 lg:col-3 md:col-6">
         <Link to={"../viewprofile/"+item.profileId}>
-          <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={profileImage}/>
-          <div style={{width:"100%", textAlign:"center"}}>{item.profileId} {item.location}</div>
+          <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={"http://localhost:3000/filestorage/"+JSON.parse(item.album)[0]}/>
+          <div style={{width:"100%", textAlign:"center"}}>{JSON.parse(item.profile).fullName},{JSON.parse(item.profile).location}</div>
         </Link>
       </div>
       ))}

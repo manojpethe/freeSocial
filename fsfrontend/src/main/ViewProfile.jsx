@@ -1,9 +1,12 @@
 import React from 'react'
+import { useDispatch,useSelector } from 'react-redux';
 import { useParams,useNavigate  } from 'react-router-dom'
 import { Button } from 'primereact/button';
 import profileImage from '../assets/img/merlyn.jpg'
 
 const ViewProfile = (props) => {
+  const suggestions = useSelector((state) => state.suggestions.data);
+  const userProfile = useSelector((state) => state.userProfile.data);
   const params = useParams();
   const navigate = useNavigate();
   return (
