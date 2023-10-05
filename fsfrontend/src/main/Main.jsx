@@ -6,6 +6,7 @@ import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
 import axios from 'axios';
 import CONST from '../common/constants'; 
+import loadUserInfo from '../service/loadUserInfoService';
 
 const Main = () => {
   const userInfo = useSelector((state) => state.userInfo.data);
@@ -23,7 +24,6 @@ const Main = () => {
       }
     })
     .catch(e=>{console.log("Something went Wrong!",e)})
-
   },[]) 
 
   return (

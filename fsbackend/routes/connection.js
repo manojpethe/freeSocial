@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Users = require("../model/users");
-// var Connection = require("../model/connection");
+var Connection = require("../model/connection");
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
@@ -39,8 +39,13 @@ router.get('/', async function(req, res, next) {
 router.post('/', async function(req, res, next) {
 
   if(req.query.queryType === "requestConnection"){
-    console.log("Requesting new Connection",req.body);
-    res.send({ message: "OK"});
+    console.log("Requesting new Connection",req.body);    
+    try{
+      const newRequest = await Connection.create({userid: req.body.fromId, friendid: req.body.toId, status:1});
+      res.send(newRequest);
+    } catch(e) {
+      console.log("Something went wrong!",e)
+    }
     // try{
     //   let result = await Users.update({ profile: req.body }, { where: { email: req.query.email }});
     //   console.log("result:--------->",result);

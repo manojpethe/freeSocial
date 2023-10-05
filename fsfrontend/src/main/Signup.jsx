@@ -17,7 +17,6 @@ const Signup = () => {
   const handleRegistration = () => {
     axios.post(CONST.SERVER_URL+"/users?queryType=registerUser",{email:UserInfo.email})
     .then((res)=>{
-      console.log(res);
       setStep(3);
     })
     .catch((e)=>{ console.log("Something went wrong!",e)});

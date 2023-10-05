@@ -1,8 +1,8 @@
 import axios from "axios";
 import CONST from '../common/constants'; 
 
-const requestConnection = async (id) => {
-    const response = await axios.post(CONST.SERVER_URL+"/connection?queryType=requestConnection",{id:id})
+const requestConnection = async (fromId,toId) => {
+    const response = await axios.post(CONST.SERVER_URL+"/connection?queryType=requestConnection",{fromId,toId})
     .catch((e)=>{
         console.log("Something went wrong!:",e);
         return false;

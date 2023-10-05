@@ -17,7 +17,7 @@ const Connection = db.define("Connection", {
         allowNull: false,
     },
     status: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 });

@@ -7,15 +7,16 @@ import { Toast } from 'primereact/toast';
 import userService from '../service/userService';
 import { requestConnection } from '../service/connectionService';
 import CONST from '../common/constants'; 
+import { useSelector } from 'react-redux';
 
 const ViewProfile = (props) => {
+  const userInfo = useSelector((state) => state.userInfo.data);
   const params = useParams();
   const navigate = useNavigate();
   const[profile, setProfile] = useState({});
   const[album, setAlbum] = useState([]);
   const[profileId, setProfileId] = useState(0);
 
-  console.log(album[0]);
 
   useEffect(() => {
     getProfile(params.id);
@@ -26,12 +27,11 @@ const ViewProfile = (props) => {
     setProfile(response.user.profile);
     setAlbum(response.user.album);
     setProfileId(response.user.id);
-    console.log(response.user.profile,response.user.album);
   }
 
   const sendFriendRequest = async ()=> {
-    const response = await requestConnection(profileId);
-    console.log(response);
+    const response = await requestConnection(userInfo.id, profileId);
+    console.log("sendFriendRequest",response);
   }
   
   return (

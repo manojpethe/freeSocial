@@ -50,13 +50,13 @@ const Login = () => {
       axios.get(CONST.SERVER_URL+"/users?getUser="+userInfo.email)
       .then(res=> { 
         if(res.data.count){
-          console.log("User found");
-          document.cookie="userInfo="+JSON.stringify(userInfo)+"; ;max-age=172800; SameSite=Strict;";
-          dispatch(login(userInfo));
+          const id = res.data.user.id;
+          document.cookie="userInfo="+JSON.stringify({...userInfo,id})+"; ;max-age=172800;";
+          dispatch(login({...userInfo,id}));
           navigate("/main/feed");
         } else{
           console.log("user not registered.");
-          document.cookie="userInfo="+JSON.stringify(userInfo)+"; ;max-age=172800; SameSite=Strict;";
+          document.cookie="userInfo="+JSON.stringify(userInfo)+"; ;max-age=172800;";
           dispatch(login(userInfo));
           navigate("/main/signup");
         }

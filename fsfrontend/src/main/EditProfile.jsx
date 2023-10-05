@@ -219,7 +219,6 @@ const EditReligion = (props) => {
   ];
 
   const handleReligion = (selectReligion) => {
-    console.log("selectReligion",selectReligion);
     setReligion(selectReligion.code);
     setSelectedReligion(selectReligion);
   }
@@ -327,9 +326,8 @@ const EditProfile = () => {
 
   useEffect(()=>{
     console.log("Load Profile for the current user");
-    axios.get(CONST.SERVER_UL+"/users?getUser="+userInfo.email)
+    axios.get(CONST.SERVER_URL+"/users?getUser="+userInfo.email)
     .then(res=>{
-      console.log("Profile",res.data.user.profile);
       if(!res.data.user.profile){
         dispatch(updateData(emptyProfile));
       } else {

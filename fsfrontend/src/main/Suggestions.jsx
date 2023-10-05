@@ -12,11 +12,11 @@ const Suggestions = () => {
   const suggestions = useSelector((state) => state.suggestions.data);
   const userProfile = useSelector((state) => state.userProfile.data);
 
-  console.log(suggestions);
+  // console.log(suggestions);
 
   useEffect( () => {
     getSuggestions();
-    console.log("doing nothing...");
+    // console.log("doing nothing...");  
   }, [])
   
   const getSuggestions = async () =>{
