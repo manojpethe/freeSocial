@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
 import axios from 'axios';
+import CONST from '../common/constants'; 
 
 const Main = () => {
   const userInfo = useSelector((state) => state.userInfo.data);
@@ -13,7 +14,7 @@ const Main = () => {
 
   useEffect(()=>{
     console.log("Load Profile for the current user");
-    axios.get("http://localhost:3000/users?getUser="+userInfo.email)
+    axios.get(CONST.SERVER_URL+"/users?getUser="+userInfo.email)
     .then(res=>{
       if(!res.data.user.profile){
         dispatch(updateData(emptyProfile));

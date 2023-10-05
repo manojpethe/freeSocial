@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import CONST from '../common/constants'; 
 
 const Signup = () => {
   const UserInfo = useSelector((state) => state.userInfo.data);
@@ -14,7 +15,7 @@ const Signup = () => {
   // console.log(UserInfo);
 
   const handleRegistration = () => {
-    axios.post("http://localhost:3000/users?queryType=registerUser",{email:UserInfo.email})
+    axios.post(CONST.SERVER_URL+"/users?queryType=registerUser",{email:UserInfo.email})
     .then((res)=>{
       console.log(res);
       setStep(3);

@@ -3,6 +3,7 @@ import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios';
 import { useDispatch,useSelector } from 'react-redux';
 import { login } from '../redux/userInfo';
+import CONST from '../common/constants';
 
 
 import { Button } from "primereact/button"
@@ -46,7 +47,7 @@ const Login = () => {
         .then(res => res.data);
 
       console.log(userInfo);
-      axios.get("http://localhost:3000/users?getUser="+userInfo.email)
+      axios.get(CONST.SERVER_URL+"/users?getUser="+userInfo.email)
       .then(res=> { 
         if(res.data.count){
           console.log("User found");

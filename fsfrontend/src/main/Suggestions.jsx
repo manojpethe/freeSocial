@@ -5,6 +5,7 @@ import { loadData } from '../redux/suggestions';
 import profileImage from '../assets/img/merlyn.jpg'
 import { Link } from "react-router-dom";
 import suggestionsService from '../service/suggestionsService';
+import CONST from '../common/constants'; 
 
 const Suggestions = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Suggestions = () => {
     dispatch(loadData(result));
   }
 
-// http://localhost:3000/filestorage/manoj.pethe@gmail.com/manojpethe.jpg
+// CONST.SERVER_UL+"/filestorage/manoj.pethe@gmail.com/manojpethe.jpg"
 
   return (
     <>
@@ -36,7 +37,7 @@ const Suggestions = () => {
         justifyItems:"center"
          }} className="col-6 lg:col-3 md:col-6">
         <Link to={"../viewprofile/"+item.email}>
-          <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={"http://localhost:3000/filestorage/"+JSON.parse(item.album)[0]}/>
+          <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL+"/filestorage/"+JSON.parse(item.album)[0]}/>
           <div style={{width:"100%", textAlign:"center"}}>{JSON.parse(item.profile).fullName},{JSON.parse(item.profile).location}</div>
         </Link>
       </div>

@@ -6,13 +6,16 @@ import { Toast } from 'primereact/toast';
 // import profileImage from '../assets/img/merlyn.jpg'
 import userService from '../service/userService';
 import { requestConnection } from '../service/connectionService';
+import CONST from '../common/constants'; 
 
 const ViewProfile = (props) => {
   const params = useParams();
   const navigate = useNavigate();
   const[profile, setProfile] = useState({});
-  const[album, setAlbum] = useState({});
+  const[album, setAlbum] = useState([]);
   const[profileId, setProfileId] = useState(0);
+
+  console.log(album[0]);
 
   useEffect(() => {
     getProfile(params.id);
@@ -36,7 +39,9 @@ const ViewProfile = (props) => {
     <div className="col-12 lg:col-6 md:col-6">
     <Panel>
       <div style={{textAlign:"start"}}>
-      <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={"http://localhost:3000/filestorage/"+album[0]}/>
+      { album[0] !== undefined ?
+      <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL+"/filestorage/"+album[0]}/>
+      : ""}
       <br/>
       <center>
       <Button onClick={()=>{ sendFriendRequest() }} icon="pi pi-arrow-up" outlined label=" Send Interest"/> 

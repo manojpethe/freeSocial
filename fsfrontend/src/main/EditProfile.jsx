@@ -13,6 +13,7 @@ import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
 import axios from 'axios';
 import profileService from '../service/profileService';
+import CONST from '../common/constants';
 
 // let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
 
@@ -326,7 +327,7 @@ const EditProfile = () => {
 
   useEffect(()=>{
     console.log("Load Profile for the current user");
-    axios.get("http://localhost:3000/users?getUser="+userInfo.email)
+    axios.get(CONST.SERVER_UL+"/users?getUser="+userInfo.email)
     .then(res=>{
       console.log("Profile",res.data.user.profile);
       if(!res.data.user.profile){
@@ -357,7 +358,7 @@ const EditProfile = () => {
         <Panel header="Upload photos">
         <FileUpload 
           name="fileUploadClient" 
-          url={'http://localhost:3000/fileUpload?email='+userInfo.email} 
+          url={CONST.SERVER_URL+'/fileUpload?email='+userInfo.email} 
           multiple 
           accept="image/*" 
           maxFileSize={1000000} 
