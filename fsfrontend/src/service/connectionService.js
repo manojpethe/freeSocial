@@ -10,8 +10,8 @@ const requestConnection = async (fromId,toId) => {
     return response.data;
 }
 
-const getConnections = async (id) => {
-    const response = await axios.get(CONST.SERVER_URL+"/connection?queryType=getConnections")
+const connectionStatus = async (fromId,toId) => {
+    const response = await axios.post(CONST.SERVER_URL+"/connection?queryType=connectionStatus",{fromId,toId})
     .catch((e)=>{
         console.log("Something went wrong!:",e);
         return false;
@@ -19,4 +19,13 @@ const getConnections = async (id) => {
     return response.data;
 }
 
-export { requestConnection, getConnections };
+const getConnections = async (id) => {
+    const response = await axios.get(CONST.SERVER_URL+"/connection?queryType=getConnections?id"+id)
+    .catch((e)=>{
+        console.log("Something went wrong!:",e);
+        return false;
+    })
+    return response.data;
+}
+
+export { requestConnection, getConnections, connectionStatus };

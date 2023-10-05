@@ -2,34 +2,14 @@ var express = require('express');
 var router = express.Router();
 var Users = require("../model/users");
 var Connection = require("../model/connection");
+var db = require("../model/database");
+const { Op } = require("sequelize");
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
   if(req.query.queryType === "getConnections"){
     console.log("getConnections");
     res.send({ message: "OK"});
-//     console.log("getUser:",req.query.getUser);
-//     try{
-//       const response = await Users.findAll({
-//         where: {
-//           email: req.query.getUser
-//         }
-//       });
-//       if(response.length){
-//         res.send({ count: response.length ,user:response[0]});
-//       } else{
-//         res.send({ count: 0 ,user:response});
-//       }
-//       } catch(e){
-//         res.send(e);
-//       }
-//   } else {
-//     try{
-//     const response = await Users.findAll();
-//       res.send(response);
-//     } catch(e){
-//       res.send(e);
-//     }
   } else {
     res.sendStatus(401).send({ message: "Bad Request"});
   }
@@ -37,7 +17,6 @@ router.get('/', async function(req, res, next) {
 });
 
 router.post('/', async function(req, res, next) {
-
   if(req.query.queryType === "requestConnection"){
     console.log("Requesting new Connection",req.body);    
     try{
@@ -46,15 +25,32 @@ router.post('/', async function(req, res, next) {
     } catch(e) {
       console.log("Something went wrong!",e)
     }
-    // try{
-    //   let result = await Users.update({ profile: req.body }, { where: { email: req.query.email }});
-    //   console.log("result:--------->",result);
-    //   res.send(req.body).status(200).end();
-    // } catch(e){
-    //   res.send(e);
-    // }
-    // res.send(req.body).status(200).end();
   }
+
+  if(req.query.queryType === "connectionStatus"){
+    console.log("Requesting Connection Status",req.body);    
+    try{
+      // const result = await Connection.findAll({where: {userid: req.body.fromId, friendid:req.body.toId}})
+      const whereClause = {
+        where: {
+          // [Op.and]: [{userid: req.body.fromId},{userid: req.body.toId}],
+          // [Op.and]: [{friendid:req.body.toId},{userid: req.body.fromId}]
+          userid: [req.body.fromId,req.body.toId],
+          friendid: [req.body.fromId,req.body.toId]
+        }
+      };
+      
+      const result = await Connection.findAll(whereClause);
+
+      res.send(result);
+    } catch(e) {
+      console.log("Something went wrong!",e)
+    }
+  }
+
+
+  
+
 
 
 //   if(req.query.queryType === "registerUser"){

@@ -5,7 +5,7 @@ import { Panel } from 'primereact/panel';
 import { Toast } from 'primereact/toast';
 // import profileImage from '../assets/img/merlyn.jpg'
 import userService from '../service/userService';
-import { requestConnection } from '../service/connectionService';
+import { requestConnection, connectionStatus } from '../service/connectionService';
 import CONST from '../common/constants'; 
 import { useSelector } from 'react-redux';
 
@@ -32,6 +32,11 @@ const ViewProfile = (props) => {
   const sendFriendRequest = async ()=> {
     const response = await requestConnection(userInfo.id, profileId);
     console.log("sendFriendRequest",response);
+  }
+
+  const checkConnectionStatus = async () =>{
+    const response  = await connectionStatus(userInfo.id, profileId);
+    console.log(response);
   }
   
   return (
@@ -62,6 +67,7 @@ const ViewProfile = (props) => {
       </div>
       <center>
         <Button severity="secondary" text raised onClick={()=>{ navigate(-1)}}>....back</Button>
+        <Button onClick={()=>{ checkConnectionStatus()}}>Check Status</Button>
       </center>
       </Panel>
       </div>
