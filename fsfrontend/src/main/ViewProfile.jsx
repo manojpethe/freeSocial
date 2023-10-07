@@ -24,7 +24,6 @@ const ViewProfile = (props) => {
 
   const getProfile =  async (email)=> {
     userService(email).then((response)=>{
-      console.log(response);
       setProfile(response.user.profile);
       setAlbum(response.user.album);
       setProfileId(response.user.id);
@@ -34,7 +33,6 @@ const ViewProfile = (props) => {
 
   const sendFriendRequest = async ()=> {
     const response = await requestConnection(userInfo.id, profileId);
-    console.log("sendFriendRequest",response);
     setConnectionStatus(userInfo.id,profileId);
   }
 
@@ -47,7 +45,7 @@ const ViewProfile = (props) => {
     if (response.length > 0 ){
       setIsConnected(response[0].status);
       setConnRecord(response[0]);
-      console.log("Debug approve button:",response[0], profileId,userInfo.id);
+      // console.log("Debug approve button:",response[0], profileId,userInfo.id);
     }
   }
 
@@ -56,18 +54,17 @@ const ViewProfile = (props) => {
       console.error("Error: profile Id or status can not be undefined");
       return false;
     }
-    console.log("approve Request!....", requestid,status);
+    // console.log("approve Request!....", requestid,status);
     const result = approveRequest(requestid,status)
     .then(()=>{
       setConnectionStatus(userInfo.id,profileId);
     }
     ).catch((e)=> {console.error(e)});
-    console.log(result);
+    // console.log(result);
   }
   
   useEffect(() => {
     getProfile(params.id);
-    console.log(profileId, userInfo.id);
   }, [])
 
   return (
