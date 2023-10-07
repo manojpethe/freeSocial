@@ -16,29 +16,42 @@ const ViewProfile = (props) => {
   const[profile, setProfile] = useState({});
   const[album, setAlbum] = useState([]);
   const[profileId, setProfileId] = useState(0);
-
-
-  useEffect(() => {
-    getProfile(params.id);
-  }, [])
+  const[isConnected,setIsConnected] = useState(0);
+  // null is not connected = show "send Interest" // default hook value is 0
+  // 1 is request pending = show "request pending"
+  // 2 is request accepted = enable Chat button
 
   const getProfile =  async (email)=> {
-    const response = await userService(email);
-    setProfile(response.user.profile);
-    setAlbum(response.user.album);
-    setProfileId(response.user.id);
+    userService(email).then((response)=>{
+      console.log(response);
+      setProfile(response.user.profile);
+      setAlbum(response.user.album);
+      setProfileId(response.user.id);
+      setConnectionStatus(userInfo.id, response.user.id);
+    });
   }
 
   const sendFriendRequest = async ()=> {
     const response = await requestConnection(userInfo.id, profileId);
     console.log("sendFriendRequest",response);
+    setConnectionStatus(userInfo.id,profileId);
   }
 
-  const checkConnectionStatus = async () =>{
-    const response  = await connectionStatus(userInfo.id, profileId);
-    console.log(response);
+  const setConnectionStatus = async (fromId,toId) =>{
+    if(fromId == 0 || toId === 0 || fromId == undefined || toId === undefined){
+      console.error("Error: profile Id can not be 0 or undefined");
+      return false;
+    }
+    const response  = await connectionStatus(fromId,toId);
+    if (response.length > 0 ){
+      setIsConnected(response[0].status);
+    }
   }
   
+  useEffect(() => {
+    getProfile(params.id);
+  }, [])
+
   return (
   <>
     <div className="col-12 lg:col-6 md:col-6">
@@ -49,8 +62,13 @@ const ViewProfile = (props) => {
       : ""}
       <br/>
       <center>
-      <Button onClick={()=>{ sendFriendRequest() }} icon="pi pi-arrow-up" outlined label=" Send Interest"/> 
-      &nbsp;<Button icon="pi pi-whatsapp" outlined label="Chat"/>
+      { isConnected === 0 ?
+      <Button onClick={()=>{ sendFriendRequest() }} icon="pi pi-arrow-up" outlined label=" Send Interest"/>: ""}
+      { isConnected === 1 ?
+      <Button icon="pi pi-arrow-up" outlined label=" Request Pending" disabled/> : ""}
+      &nbsp;
+      { isConnected === 2 ? <Button icon="pi pi-whatsapp" outlined label="Chat" /> : 
+      <Button icon="pi pi-whatsapp" outlined label="Chat" disabled />}
       </center>
       <br/>
       <div>Name:{profile.fullName} Height: {profile.height}</div>
@@ -67,7 +85,7 @@ const ViewProfile = (props) => {
       </div>
       <center>
         <Button severity="secondary" text raised onClick={()=>{ navigate(-1)}}>....back</Button>
-        <Button onClick={()=>{ checkConnectionStatus()}}>Check Status</Button>
+        {/* <Button onClick={()=>{ setConnectionStatus()}}>Check Status</Button> */}
       </center>
       </Panel>
       </div>
