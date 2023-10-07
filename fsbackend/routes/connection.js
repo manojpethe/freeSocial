@@ -8,8 +8,23 @@ const { Op } = require("sequelize");
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
   if(req.query.queryType === "getConnections"){
-    console.log("getConnections");
-    res.send({ message: "OK"});
+    console.log("getConnections id:",req.query.id);
+    sqlFindConnections = 
+    `select id, json_extract(profile,'$.fullName' ) as fullName from Users where id in
+    (
+    select friendid as id from Connections where status = 2 and userid = ${req.query.id}
+    union all
+    select userid as id from Connections where status = 2 and friendid = ${req.query.id}
+    )`;
+    try{
+      const result = await db.query(sqlFindConnections);
+      // console.log(result[0]);
+      res.send(result[0]);
+    } catch {
+      (e)=>{
+        console.error(e);
+      }
+    }
   } else {
     res.sendStatus(401).send({ message: "Bad Request"});
   }

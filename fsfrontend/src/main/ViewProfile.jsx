@@ -80,12 +80,12 @@ const ViewProfile = (props) => {
       { isConnected === 0 ?
       <Button onClick={()=>{ sendFriendRequest() }} icon="pi pi-arrow-up" outlined label=" Send Interest"/>: ""}
       { isConnected === 1 && connRecord.userid === userInfo.id && connRecord.friendid === profileId ?
-      <Button icon="pi pi-arrow-up" outlined label=" Request Pending" disabled/> : ""}
+      <Button severity="danger" icon="pi pi-arrow-up" outlined label=" Request Pending" disabled/> : ""}
       { isConnected === 1 && connRecord.userid === profileId && connRecord.friendid ===  userInfo.id ?
       <Button onClick={()=>{ handleApproveRequest(connRecord.id, connRecord.status) }} icon="pi pi-check" outlined label=" Approve Request" /> : ""}
       &nbsp;
       { isConnected === 2 ? 
-      <Button onClick={()=>{ console.log("Open a chat window"); }} icon="pi pi-whatsapp" outlined label="Chat" /> : 
+      <Button severity="success" onClick={()=>{ console.log("Open a chat window"); }} icon="pi pi-whatsapp" outlined label="Chat" /> : 
       <Button icon="pi pi-whatsapp" outlined label="Chat" disabled />}
       </center>
       <br/>
