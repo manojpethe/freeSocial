@@ -47,11 +47,11 @@ const GenderOptions = (props) => {
     <>
       <div className="flex flex-wrap gap-3">
         <div className="flex align-items-center">
-          <RadioButton inputId="gender1" name="gender" value="Femle" onChange={(e) => { setGender(e.value); console.log(e); }} checked={gender === 'Femle'} />
+          <RadioButton inputId="gender1" name="gender" value="Female" onChange={(e) => { setGender(e.value);}} checked={gender === 'Female'} />
           <label htmlFor="gender1" className="ml-2">Female</label>
         </div>
         <div className="flex align-items-center">
-          <RadioButton inputId="gender2" name="gender" value="Male" onChange={(e) => { setGender(e.value); console.log(e); }} checked={gender === 'Male'} />
+          <RadioButton inputId="gender2" name="gender" value="Male" onChange={(e) => { setGender(e.value);}} checked={gender === 'Male'} />
           <label htmlFor="gender2" className="ml-2">Male</label>
         </div>
       </div>

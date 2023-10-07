@@ -5,7 +5,7 @@ import { Panel } from 'primereact/panel';
 import { Toast } from 'primereact/toast';
 // import profileImage from '../assets/img/merlyn.jpg'
 import userService from '../service/userService';
-import { requestConnection, connectionStatus } from '../service/connectionService';
+import { requestConnection, connectionStatus, approveRequest } from '../service/connectionService';
 import CONST from '../common/constants'; 
 import { useSelector } from 'react-redux';
 
@@ -17,6 +17,7 @@ const ViewProfile = (props) => {
   const[album, setAlbum] = useState([]);
   const[profileId, setProfileId] = useState(0);
   const[isConnected,setIsConnected] = useState(0);
+  const[connRecord,setConnRecord] = useState({});
   // null is not connected = show "send Interest" // default hook value is 0
   // 1 is request pending = show "request pending"
   // 2 is request accepted = enable Chat button
@@ -45,11 +46,28 @@ const ViewProfile = (props) => {
     const response  = await connectionStatus(fromId,toId);
     if (response.length > 0 ){
       setIsConnected(response[0].status);
+      setConnRecord(response[0]);
+      console.log("Debug approve button:",response[0], profileId,userInfo.id);
     }
+  }
+
+  const handleApproveRequest = (requestid, status)=>{
+    if( requestid === undefined|| status == undefined ){
+      console.error("Error: profile Id or status can not be undefined");
+      return false;
+    }
+    console.log("approve Request!....", requestid,status);
+    const result = approveRequest(requestid,status)
+    .then(()=>{
+      setConnectionStatus(userInfo.id,profileId);
+    }
+    ).catch((e)=> {console.error(e)});
+    console.log(result);
   }
   
   useEffect(() => {
     getProfile(params.id);
+    console.log(profileId, userInfo.id);
   }, [])
 
   return (
@@ -64,10 +82,13 @@ const ViewProfile = (props) => {
       <center>
       { isConnected === 0 ?
       <Button onClick={()=>{ sendFriendRequest() }} icon="pi pi-arrow-up" outlined label=" Send Interest"/>: ""}
-      { isConnected === 1 ?
+      { isConnected === 1 && connRecord.userid === userInfo.id && connRecord.friendid === profileId ?
       <Button icon="pi pi-arrow-up" outlined label=" Request Pending" disabled/> : ""}
+      { isConnected === 1 && connRecord.userid === profileId && connRecord.friendid ===  userInfo.id ?
+      <Button onClick={()=>{ handleApproveRequest(connRecord.id, connRecord.status) }} icon="pi pi-check" outlined label=" Approve Request" /> : ""}
       &nbsp;
-      { isConnected === 2 ? <Button icon="pi pi-whatsapp" outlined label="Chat" /> : 
+      { isConnected === 2 ? 
+      <Button onClick={()=>{ console.log("Open a chat window"); }} icon="pi pi-whatsapp" outlined label="Chat" /> : 
       <Button icon="pi pi-whatsapp" outlined label="Chat" disabled />}
       </center>
       <br/>
