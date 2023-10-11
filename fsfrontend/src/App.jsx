@@ -20,6 +20,8 @@ import AccountSettings from './main/AccountSettings';
 import BlockedIgnored from './main/BlockedIgnored';
 import ViewProfile from './main/ViewProfile';
 import Signup from './main/Signup';
+import Connections from './main/Connections';
+import Chat from './main/Chat';
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
         <Route path="accountSettings" element={<ProtectedRoute><AccountSettings /></ProtectedRoute>} />
         <Route path="support" element={<ProtectedRoute><Help /></ProtectedRoute>} />
         <Route path="viewprofile/:id" element={<ProtectedRoute><ViewProfile /></ProtectedRoute>} />
+        <Route path="connections" element={<ProtectedRoute><Connections /></ProtectedRoute>} />
+        <Route path="chat/:id" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
       </Route>
       <Route path="*" element={<div>404</div>} />
     </Routes>

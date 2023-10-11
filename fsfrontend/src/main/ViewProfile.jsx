@@ -85,7 +85,7 @@ const ViewProfile = (props) => {
       <Button onClick={()=>{ handleApproveRequest(connRecord.id, connRecord.status) }} icon="pi pi-check" outlined label=" Approve Request" /> : ""}
       &nbsp;
       { isConnected === 2 ? 
-      <Button severity="success" onClick={()=>{ console.log("Open a chat window"); }} icon="pi pi-whatsapp" outlined label="Chat" /> : 
+      <Button severity="success" onClick={()=>{ console.log("Open a chat window"); navigate("/main/chat/"+profileId); }} icon="pi pi-whatsapp" outlined label="Chat" /> : 
       <Button icon="pi pi-whatsapp" outlined label="Chat" disabled />}
       </center>
       <br/>

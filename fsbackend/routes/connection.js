@@ -7,7 +7,7 @@ const { Op } = require("sequelize");
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
-  if(req.query.queryType === "getConnections"){
+  if(req.query.queryType === "getConnections" && req.query.id != undefined ){
     console.log("getConnections id:",req.query.id);
     sqlFindConnections = 
     `select id, json_extract(profile,'$.fullName' ) as fullName from Users where id in
@@ -26,7 +26,7 @@ router.get('/', async function(req, res, next) {
       }
     }
   } else {
-    res.sendStatus(401).send({ message: "Bad Request"});
+    res.sendStatus(400);
   }
 
 });
