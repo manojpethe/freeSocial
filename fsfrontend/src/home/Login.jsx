@@ -79,7 +79,7 @@ const Login = () => {
         .then(res => res.data);
 
       console.log(userInfo);
-      axios.get(CONST.SERVER_URL+"/users?getUser="+userInfo.email)
+      axios.get(CONST.SERVER_URL+"/users?queryType=getUser&email="+userInfo.email)
       .then(res=> { 
         if(res.data.count){
           const id = res.data.user.id;

@@ -4,14 +4,17 @@ var Users = require("../model/users");
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
-  if(req.query.queryType === 'getUser' && req.query.id !== undefined){
-    console.log("getUser:",req.query.id);
+  if(req.query.queryType === 'getUser' && ( req.query.id !== undefined || req.query.email !== undefined )){
+    console.log("getUser:",req.query.id,req.query.email);
+    let whereClause = {};
+    if(req.query.id){
+      whereClause = { where: { id: req.query.id } };
+    } else if (req.query.email){
+      whereClause = { where: { email: req.query.email } };
+    }
+
     try{
-      const response = await Users.findAll({
-        where: {
-          id: req.query.id
-        }
-      });
+      const response = await Users.findAll(whereClause);
       if(response.length){
         res.send({ count: response.length ,user:response[0]});
       } else{

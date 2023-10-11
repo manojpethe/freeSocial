@@ -15,7 +15,7 @@ const Main = () => {
 
   useEffect(()=>{
     console.log("Load Profile for the current user");
-    axios.get(CONST.SERVER_URL+"/users?getUser="+userInfo.email)
+    axios.get(CONST.SERVER_URL+"/users?queryType=getUser&email="+userInfo.email)
     .then(res=>{
       if(!res.data.user.profile){
         dispatch(updateData(emptyProfile));
