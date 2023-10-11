@@ -4,12 +4,12 @@ var Users = require("../model/users");
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
-  if(req.query.getUser){
-    console.log("getUser:",req.query.getUser);
+  if(req.query.queryType === 'getUser' && req.query.id !== undefined){
+    console.log("getUser:",req.query.id);
     try{
       const response = await Users.findAll({
         where: {
-          email: req.query.getUser
+          id: req.query.id
         }
       });
       if(response.length){
