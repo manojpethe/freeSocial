@@ -20,7 +20,7 @@ const connectionStatus = async (fromId,toId) => {
 }
 
 const getConnections = async (id) => {
-    const response = await axios.get(CONST.SERVER_URL+"/connection?queryType=getConnections?id"+id)
+    const response = await axios.get(CONST.SERVER_URL+"/connection?queryType=getConnections&id="+id)
     .catch((e)=>{
         console.error("Something went wrong!:",e);
         return false;
