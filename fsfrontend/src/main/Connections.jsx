@@ -1,16 +1,15 @@
 import { useEffect,useState } from 'react';
 import { getConnections } from '../service/connectionService';
 import { useSelector,useDispatch } from 'react-redux';
+import { loadConnections } from '../redux/connections';
 import { ListBox } from 'primereact/listbox';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Connections = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo.data);
+  const connections = useSelector((state) => state.connections.data);
   const dispatch = useDispatch();
-  const [connections, setConnections] = useState([]);
-  // const [selectedConnection, setSelectedConnection] = useState(null);
-
 
 useEffect(() => {
   handleGetConnections();
@@ -18,11 +17,10 @@ useEffect(() => {
 
 const handleGetConnections = async ()=> {
   const result = await getConnections(userInfo.id);
-  setConnections(result);
+  dispatch(loadConnections(result));
 }
 
 const handleOpenChat =(item)=>{
-  // console.log(item);
   if(Number.isInteger(item.id)){
     navigate("/main/chat/"+item.id);
   }

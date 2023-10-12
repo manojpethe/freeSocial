@@ -50,6 +50,11 @@ const dummyProfile = {
   return (
     <div>
     <div>This is a Help Page</div>
+    <div style={{width:"100%",height:"70vh",backgroundColor:"white", overflow:"scroll"}}>
+    <div style={{ display:"flex"}} key={"item.id"}>
+        <div style={{ marginLeft: "auto", backgroundColor:"green", color:"white"}}>{"item.message"}</div>
+      </div>
+    </div>
     <Button onClick={uploadProfile}>Update Profile</Button><p/>
     <Button onClick={sendMessage}> Send Message</Button>
     <p/>

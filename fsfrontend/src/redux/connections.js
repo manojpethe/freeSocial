@@ -8,7 +8,7 @@ export const connectionsSlice = createSlice({
   name: 'connections',
   initialState,
   reducers: {
-    loadData: (state,action) => {
+    loadConnections: (state,action) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
@@ -25,6 +25,6 @@ export const connectionsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { loadData, addData } = connectionsSlice.actions
+export const { loadConnections, addData } = connectionsSlice.actions
 
 export default connectionsSlice.reducer
