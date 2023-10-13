@@ -325,7 +325,7 @@ const EditProfile = () => {
   const [editAboutMeToggle, setEditAboutMeToggle] = useState(false);
 
   useEffect(()=>{
-    console.log("Load Profile for the current user");
+    // console.log("Load Profile for the current user");
     axios.get(CONST.SERVER_URL+"/users?queryType=getUser&email="+userInfo.email)
     .then(res=>{
       if(!res.data.user.profile){

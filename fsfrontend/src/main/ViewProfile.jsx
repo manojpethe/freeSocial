@@ -16,7 +16,7 @@ const ViewProfile = (props) => {
   const[profile, setProfile] = useState({});
   const[album, setAlbum] = useState([]);
   const[profileId, setProfileId] = useState(0);
-  const[isConnected,setIsConnected] = useState(0);
+  const[isConnected,setIsConnected] = useState(10);
   const[connRecord,setConnRecord] = useState({});
   // null is not connected = show "send Interest" // default hook value is 0
   // 1 is request pending = show "request pending"
@@ -37,6 +37,7 @@ const ViewProfile = (props) => {
   }
 
   const setConnectionStatus = async (fromId,toId) =>{
+    console.log(fromId,toId);
     if(fromId == 0 || toId === 0 || fromId == undefined || toId === undefined){
       console.error("Error: profile Id can not be 0 or undefined");
       return false;
@@ -69,6 +70,8 @@ const ViewProfile = (props) => {
 
   return (
   <>
+  <div className="grid" style={{ "width": "100%" }}>
+  <div className="col-3 lg:col-3 md:col-3">&nbsp;</div>
     <div className="col-12 lg:col-6 md:col-6">
     <Panel>
       <div style={{textAlign:"start"}}>
@@ -85,7 +88,7 @@ const ViewProfile = (props) => {
       <Button onClick={()=>{ handleApproveRequest(connRecord.id, connRecord.status) }} icon="pi pi-check" outlined label=" Approve Request" /> : ""}
       &nbsp;
       { isConnected === 2 ? 
-      <Button severity="success" onClick={()=>{ console.log("Open a chat window"); navigate("/main/chat/"+profileId); }} icon="pi pi-whatsapp" outlined label="Chat" /> : 
+      <Button severity="success" onClick={()=>{ navigate("/main/chat/"+profileId); }} icon="pi pi-whatsapp" outlined label="Chat" /> : 
       <Button icon="pi pi-whatsapp" outlined label="Chat" disabled />}
       </center>
       <br/>
@@ -106,6 +109,7 @@ const ViewProfile = (props) => {
         {/* <Button onClick={()=>{ setConnectionStatus()}}>Check Status</Button> */}
       </center>
       </Panel>
+      </div>
       </div>
     </>
   )

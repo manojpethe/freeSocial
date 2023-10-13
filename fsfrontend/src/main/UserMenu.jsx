@@ -59,7 +59,7 @@ const UserMenu = () => {
     ];
 
     // const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img>;
-    const start = <div style={{ "cursor": "pointer" }}><p className="mr-2" onClick={() => { navigate("/main/feed") }} >friends.com</p></div>;
+    const start = <div style={{ "cursor": "pointer" }}><p className="mr-2" onClick={() => { navigate("/main/feed") }} >NRI matrimony</p></div>;
     // const end = <InputText placeholder="Search" type="text" className="w-full" />;
     const end = (
         <div style={{ "display": "flex", "width":"100px", "justifyContent": "space-around" }}>

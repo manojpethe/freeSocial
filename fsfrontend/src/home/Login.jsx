@@ -24,7 +24,8 @@ const dummyProfile1 = {
   "picture": "https://lh3.googleusercontent.com/a/ACg8ocL-K4P4RF_tFj_rLP4mSzqvMkUyYhpeorTimWUTo5LkjH0=s96-c",
   "email": "shweta.tiwari@gmail.com",
   "email_verified": true,
-  "locale": "en-GB"
+  "locale": "en-GB",
+  // "id": 2
 }
 
 
@@ -51,7 +52,7 @@ const Login = () => {
 
   const loginWithDummyProfile = (userInfo) => {
 
-    axios.get(CONST.SERVER_URL+"/users?getUser="+userInfo.email)
+    axios.get(CONST.SERVER_URL+"/users?queryType=getUser&email="+userInfo.email)
     .then(res=> { 
       if(res.data.count){
         const id = res.data.user.id;
@@ -109,6 +110,7 @@ const Login = () => {
       <div><Button style={{ "width": "100%", "backgroundColor":"black" }} onClick={() => { googleLogin() }}>Login using Apple&nbsp;<i className="pi pi-apple" style={{ fontSize: '1rem' }}></i></Button></div>
       &nbsp;
       <div><Button style={{ "width": "100%", "backgroundColor":"purple" }} onClick={() => { googleLogin() }}>Login using Google&nbsp;<i className="pi pi-google" style={{ fontSize: '1rem' }}></i> </Button></div>
+      &nbsp;
       <div><Button style={{ "width": "100%", "backgroundColor":"red" }} onClick={() => { loginWithDummyProfile(dummyProfile1) }}>Login as Shweta Tiwari&nbsp;<i className="pi pi-google" style={{ fontSize: '1rem' }}></i> </Button></div>
     </div>
   )
