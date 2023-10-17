@@ -38,7 +38,7 @@ const Suggestions = () => {
          }} className="col-6 lg:col-2 md:col-3">
         <Link to={"../viewprofile/"+item.id}>
           <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL+"/filestorage/"+JSON.parse(item.album)[0]}/>
-          <div style={{width:"100%", textAlign:"center"}}>{JSON.parse(item.profile).fullName},{JSON.parse(item.profile).location}</div>
+          <div className='text-sm' style={{width:"100%", textAlign:"center"}}>{JSON.parse(item.profile).fullName},{JSON.parse(item.profile).location}</div>
         </Link>
       </div>
       ))}

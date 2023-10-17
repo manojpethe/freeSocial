@@ -8,6 +8,7 @@ import userService from '../service/userService';
 import { requestConnection, connectionStatus, approveRequest } from '../service/connectionService';
 import CONST from '../common/constants'; 
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const ViewProfile = (props) => {
   const userInfo = useSelector((state) => state.userInfo.data);
@@ -93,7 +94,7 @@ const ViewProfile = (props) => {
       </center>
       <br/>
       <div>Name:{profile.fullName} Height: {profile.height}</div>
-      <div>Location:{profile.location} Age: {profile.birthDate}</div><br/>
+      <div>Location:{profile.location} Age: { moment(Date.now()).format('YYYY')-moment(profile.birthDate).format('YYYY')}</div><br/>
       <div>Status:{profile.maritalStatus}</div>
       <div>Mother Tongue:{profile.motherTongue}</div>
       <div>Caste:{profile.caste} Religion:{profile.religion}</div>
