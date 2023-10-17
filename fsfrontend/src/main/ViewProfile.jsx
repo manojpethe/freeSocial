@@ -38,7 +38,7 @@ const ViewProfile = (props) => {
   }
 
   const setConnectionStatus = async (fromId,toId) =>{
-    console.log(fromId,toId);
+    // console.log(fromId,toId);
     if(fromId == 0 || toId === 0 || fromId == undefined || toId === undefined){
       console.error("Error: profile Id can not be 0 or undefined");
       return false;

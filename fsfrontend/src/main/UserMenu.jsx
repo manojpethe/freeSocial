@@ -5,6 +5,7 @@ import { Avatar } from 'primereact/avatar';
 // import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
+import { Badge } from 'primereact/badge';
 
 const UserMenu = () => {
     const UserInfo = useSelector((state) => state.userInfo);
@@ -64,10 +65,14 @@ const UserMenu = () => {
     const end = (
         <div style={{ "display": "flex", "width":"100px", "justifyContent": "space-around" }}>
             <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={showAlerts}>
-                <i className="pi pi-bell" style={{ fontSize: '1.5rem' }} />
+                <i className="pi pi-bell p-overlay-badge" style={{ fontSize: '1.5rem' }} > 
+                <Badge value="1" severity="danger"></Badge>
+                </i>
             </div>
             <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={()=>{navigate("/main/connections");}}>
-                <i className="pi pi-comment" style={{ fontSize: '1.5rem' }} />
+                <i className="pi pi-comment p-overlay-badge" style={{ fontSize: '1.5rem' }} >
+                <Badge value="2" severity="danger"></Badge>
+                </i>
             </div>
             <div>
                 <Avatar image={UserInfo?.data?.picture} shape="circle" />
