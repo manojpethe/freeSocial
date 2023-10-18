@@ -21,4 +21,13 @@ const getMessages = async (fromId,toId) => {
     return response.data;
 }
 
-export { newMessage,getMessages };
+const clearUnseen = async (fromId,toId) => {
+    const response = await axios.get(CONST.SERVER_URL+"/chat?queryType=clearUnseen&fromid="+fromId+"&toid="+toId)
+    .catch((e)=>{
+        console.error("Something went wrong!:",e);
+        return false;
+    })
+    return response.data;
+}
+
+export { newMessage,getMessages,clearUnseen };

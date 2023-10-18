@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { getMessages, newMessage } from "../service/chatService";
+import { getMessages, newMessage,clearUnseen } from "../service/chatService";
 import { Panel } from "primereact/panel";
 import moment from "moment";
 
@@ -22,8 +22,12 @@ const Chat = () => {
     let myInterval = setInterval(() => {
       handleLoadMessages();
     }, 10000);
-    return () => clearInterval(myInterval);
+    return () => {clearInterval(myInterval); handleClearUnseen(params.id, userInfo.id) ; console.log("unseen badge cleared")}
   }, []);
+
+  const handleClearUnseen = async (fromid,toid) =>{
+    const result = await clearUnseen(fromid,toid);
+  }
 
   const handleSendMessage = async () => {
     const result = await newMessage(userInfo.id, params.id, message);

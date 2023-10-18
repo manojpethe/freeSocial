@@ -31,6 +31,18 @@ router.get('/', async function(req, res, next) {
         console.error(e);
       }
     }
+  } else if(req.query.queryType === "clearUnseen" ) {
+
+    console.log("clearUnseen",req.query);
+    try {
+      console.log("clearUnseen",req.query.fromid,req.query.toid);
+      let result = await Chat.update({ seen: true }, { where: { fromid: req.query.fromid , toid:req.query.toid }});
+      console.log(result);
+      res.send(result);
+    } catch(e) {
+      res.sendStatus(400);
+    }
+
   } else {
     res.sendStatus(400);
   }

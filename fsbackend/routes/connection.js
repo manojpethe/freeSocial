@@ -9,13 +9,33 @@ const { Op } = require("sequelize");
 router.get('/', async function(req, res, next) {
   if(req.query.queryType === "getConnections" && req.query.id !== undefined ){
     console.log("getConnections id:",req.query.id);
-    sqlFindConnections = 
+    const sqlFindConnections1 = 
     `select id, json_extract(profile,'$.fullName' ) as fullName from Users where id in
     (
-    select friendid as id from Connections where status = 2 and userid = ${req.query.id}
+    select friendid as id from Connections where userid = ${req.query.id} and status = 2
     union all
-    select userid as id from Connections where status = 2 and friendid = ${req.query.id}
+    select userid as id from Connections where friendid = ${req.query.id} and status = 2
     )`;
+
+    const sqlFindConnections =`
+    select 
+    U.id, 
+    json_extract(U.profile,'$.fullName' ) as fullName,
+    (
+      select 
+      count(*) 
+      from Chats C 
+      where C.fromid = U.id 
+      and C.seen = false
+    ) as unseen
+    from Users U
+    where U.id in
+    (
+    select friendid as id from Connections where userid = ${req.query.id} and status = 2
+    union all
+    select userid as id from Connections where friendid = ${req.query.id} and status = 2
+    )`;
+
     try{
       const result = await db.query(sqlFindConnections);
       // console.log(result[0]);
