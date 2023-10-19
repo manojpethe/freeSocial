@@ -80,6 +80,8 @@ const Requests = () => {
       &nbsp;
       <div className="card flex justify-content-center">
         <ListBox
+          filter
+          optionLabel="fullName"
           value={selectedConnection}
           onChange={(e) => {
             setSelectedConnection(e.value);

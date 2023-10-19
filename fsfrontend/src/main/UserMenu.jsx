@@ -70,7 +70,7 @@ const UserMenu = () => {
     }
 
     const totalUnseenCount = totalUnseenMessages();
-
+    // console.log("number of requests:",requests.length);
 
     // const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img>;
     const start = <div style={{ "cursor": "pointer" }}><p className="mr-2" onClick={() => { navigate("/main/feed") }} >NRI matrimony</p></div>;
