@@ -45,6 +45,42 @@ router.get('/', async function(req, res, next) {
         console.error(e);
       }
     }
+  } else if(req.query.queryType === "getRequests" && req.query.id !== undefined){
+    console.log("id:",req.query.id);
+    const sqlGetRequestsOld = 
+    `
+    select 
+    id, 
+    json_extract(profile,'$.fullName' ) as fullName,
+    (1) as status
+    from Users where id in
+    (
+      select userid as id
+      from Connections 
+      where friendid = ${req.query.id} 
+      and status = 1
+    )
+    `;
+
+    const sqlGetRequests = `
+    select conn.userid as id,
+    conn.id as requestid,
+    json_extract(u.profile,'$.fullName' ) as fullName,
+    conn.status
+    from Connections conn, Users u
+    where conn.userid = ${req.query.id} 
+    and conn.status != 2
+    and conn.friendid = u.id
+    `
+
+    try{
+    const result = await db.query(sqlGetRequests);
+
+    res.send(result[0]);
+    } catch{
+      res.sendStatus(503);
+    }
+    
   } else {
     res.sendStatus(400);
   }

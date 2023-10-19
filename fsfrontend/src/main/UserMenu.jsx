@@ -1,4 +1,4 @@
-// import React from 'react'
+import { useState } from 'react'
 import { Menubar } from 'primereact/menubar';
 import { Avatar } from 'primereact/avatar';
 // import { InputText } from 'primereact/inputtext';
@@ -9,10 +9,10 @@ import { Badge } from 'primereact/badge';
 
 const UserMenu = () => {
     const UserInfo = useSelector((state) => state.userInfo);
+    const connections = useSelector((state) => state.connections.data);
+    const requests = useSelector((state) => state.requests.data);
     const navigate = useNavigate();
-    const showAlerts = () => {
-        console.log("show Alerts in a div");
-    }
+    // const [unseenMessages, setUnseenMessages] = useState(0);
 
     const items = [
         {
@@ -59,19 +59,32 @@ const UserMenu = () => {
         }
     ];
 
+    const totalUnseenMessages = ()=>{
+        let total = 0;
+        if(connections.length){
+            connections.forEach(element => {
+                total = total + element.unseen;
+            });
+        }
+        return total;
+    }
+
+    const totalUnseenCount = totalUnseenMessages();
+
+
     // const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img>;
     const start = <div style={{ "cursor": "pointer" }}><p className="mr-2" onClick={() => { navigate("/main/feed") }} >NRI matrimony</p></div>;
     // const end = <InputText placeholder="Search" type="text" className="w-full" />;
     const end = (
         <div style={{ "display": "flex", "width":"100px", "justifyContent": "space-around" }}>
-            <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={showAlerts}>
+            <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={()=>{navigate("/main/requests");}}>
                 <i className="pi pi-bell p-overlay-badge" style={{ fontSize: '1.5rem' }} > 
-                <Badge value="1" severity="danger"></Badge>
+                { requests.length ? <Badge value={requests.length} severity="danger"></Badge>:"" }
                 </i>
             </div>
             <div style={{ "cursor": "pointer", "margin":"auto" }} onClick={()=>{navigate("/main/connections");}}>
                 <i className="pi pi-comment p-overlay-badge" style={{ fontSize: '1.5rem' }} >
-                <Badge value="2" severity="danger"></Badge>
+                { totalUnseenCount ? <Badge value={totalUnseenCount} severity="danger"></Badge> : "" }
                 </i>
             </div>
             <div>
@@ -79,8 +92,6 @@ const UserMenu = () => {
             </div>
         </div>
     );
-
-
 
     return (
         <div className="card sticky">

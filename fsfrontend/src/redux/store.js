@@ -3,6 +3,7 @@ import userInfoSlice from './userInfo';
 import userProfileSlice from './userProfile';
 import suggestionsSlice from './suggestions';
 import connectionsSlice from './connections';
+import requestsSlice from './requests';
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     userProfile: userProfileSlice,
     suggestions: suggestionsSlice,
     connections: connectionsSlice,
+    requests: requestsSlice,
   },
 })

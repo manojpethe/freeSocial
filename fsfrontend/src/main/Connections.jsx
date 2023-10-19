@@ -10,6 +10,7 @@ const Connections = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.userInfo.data);
   const connections = useSelector((state) => state.connections.data);
+  const [selectedConnection, setSelectedConnection] = useState("");
   const dispatch = useDispatch();
 
 useEffect(() => {
@@ -55,7 +56,7 @@ const handleSelectIem = (item)=>{
     <>
     &nbsp;
     <div  className="card flex justify-content-center">
-            <ListBox   filter value={""} onChange={(e) => {console.log("do nothing");}} options={connections} itemTemplate={personTemplate} className="w-full sm:w-15rem md:w-30rem " />
+            <ListBox value={selectedConnection} onChange={(e) => { setSelectedConnection(e.value); console.log("do nothing");}} options={connections} itemTemplate={personTemplate} className="w-full sm:w-15rem md:w-30rem " />
     </div>
     </>
   )

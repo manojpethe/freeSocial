@@ -28,6 +28,18 @@ const dummyProfile1 = {
   // "id": 2
 }
 
+const dummyProfile2 = {
+  "sub": "111821378167001404259",
+  "name": "Bhargavi Patil",
+  "given_name": "Bhargavi",
+  "family_name": "Patil",
+  "picture": "https://lh3.googleusercontent.com/a/ACg8ocL-K4P4RF_tFj_rLP4mSzqvMkUyYhpeorTimWUTo5LkjH0=s96-c",
+  "email": "bhargavi.patil@gmail.com",
+  "email_verified": true,
+  "locale": "en-GB",
+  // "id": 2
+}
+
 
 
 const Login = () => {
@@ -112,6 +124,8 @@ const Login = () => {
       <div><Button style={{ "width": "100%", "backgroundColor":"purple" }} onClick={() => { googleLogin() }}>Login using Google&nbsp;<i className="pi pi-google" style={{ fontSize: '1rem' }}></i> </Button></div>
       &nbsp;
       <div><Button style={{ "width": "100%", "backgroundColor":"red" }} onClick={() => { loginWithDummyProfile(dummyProfile1) }}>Login as Shweta Tiwari&nbsp;<i className="pi pi-google" style={{ fontSize: '1rem' }}></i> </Button></div>
+      &nbsp;
+      <div><Button style={{ "width": "100%", "backgroundColor":"red" }} onClick={() => { loginWithDummyProfile(dummyProfile2) }}>Login as Bhargavi Patil&nbsp;<i className="pi pi-google" style={{ fontSize: '1rem' }}></i> </Button></div>
     </div>
   )
 }

@@ -28,6 +28,15 @@ const getConnections = async (id) => {
     return response.data;
 }
 
+const getRequests = async (id) => {
+    const response = await axios.get(CONST.SERVER_URL+"/connection?queryType=getRequests&id="+id)
+    .catch((e)=>{
+        console.error("Something went wrong!:",e);
+        return false;
+    })
+    return response.data;
+}
+
 const approveRequest = async (requestid, status) =>{
     const response = await axios.post(CONST.SERVER_URL+"/connection?queryType=approveRequest",{requestid,status})
     .catch((e)=>{
@@ -37,4 +46,4 @@ const approveRequest = async (requestid, status) =>{
     return response.data;
 }
 
-export { requestConnection, getConnections, connectionStatus, approveRequest };
+export { requestConnection, getConnections, connectionStatus, approveRequest, getRequests };

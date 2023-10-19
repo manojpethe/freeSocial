@@ -22,6 +22,7 @@ import ViewProfile from './main/ViewProfile';
 import Signup from './main/Signup';
 import Connections from './main/Connections';
 import Chat from './main/Chat';
+import Requests from './main/Requests';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="support" element={<ProtectedRoute><Help /></ProtectedRoute>} />
         <Route path="viewprofile/:id" element={<ProtectedRoute><ViewProfile /></ProtectedRoute>} />
         <Route path="connections" element={<ProtectedRoute><Connections /></ProtectedRoute>} />
+        <Route path="requests" element={<ProtectedRoute><Requests /></ProtectedRoute>} />
         <Route path="chat/:id" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
       </Route>
       <Route path="*" element={<div>404</div>} />
