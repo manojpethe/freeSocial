@@ -17,7 +17,7 @@ const ViewProfile = (props) => {
   const[profile, setProfile] = useState({});
   const[album, setAlbum] = useState([]);
   const[profileId, setProfileId] = useState(0);
-  const[isConnected,setIsConnected] = useState(10);
+  const[isConnected,setIsConnected] = useState(0);
   const[connRecord,setConnRecord] = useState({});
   // null is not connected = show "send Interest" // default hook value is 0
   // 1 is request pending = show "request pending"

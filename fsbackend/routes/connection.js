@@ -68,9 +68,9 @@ router.get('/', async function(req, res, next) {
     json_extract(u.profile,'$.fullName' ) as fullName,
     conn.status
     from Connections conn, Users u
-    where conn.userid = ${req.query.id} 
+    where conn.friendid = ${req.query.id} 
     and conn.status != 2
-    and conn.friendid = u.id
+    and conn.userid = u.id
     `
 
     try{
