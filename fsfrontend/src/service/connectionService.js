@@ -46,4 +46,13 @@ const approveRequest = async (requestid, status) =>{
     return response.data;
 }
 
-export { requestConnection, getConnections, connectionStatus, approveRequest, getRequests };
+const rejectRequest = async (requestid, status) =>{
+    const response = await axios.post(CONST.SERVER_URL+"/connection?queryType=rejectRequest",{requestid,status})
+    .catch((e)=>{
+        console.error("Something went wrong!:",e);
+        return false;
+    })
+    return response.data;
+}
+
+export { requestConnection, getConnections, connectionStatus, approveRequest, getRequests, rejectRequest };

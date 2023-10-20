@@ -91,6 +91,8 @@ const ViewProfile = (props) => {
       { isConnected === 2 ? 
       <Button severity="success" onClick={()=>{ navigate("/main/chat/"+profileId); }} icon="pi pi-whatsapp" outlined label="Chat" /> : 
       <Button icon="pi pi-whatsapp" outlined label="Chat" disabled />}
+      { isConnected === 3 ? 
+      <Button severity="secondary" outlined icon="pi pi-whatsapp" label="Declined" /> : ""}
       </center>
       <br/>
       <div>Name:{profile.fullName} Height: {profile.height}</div>

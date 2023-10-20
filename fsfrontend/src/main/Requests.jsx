@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRequests,approveRequest } from "../service/connectionService";
+import { getRequests,approveRequest,rejectRequest } from "../service/connectionService";
 import { useSelector, useDispatch } from "react-redux";
 import { loadRequests } from "../redux/requests";
 import { ListBox } from "primereact/listbox";
@@ -40,9 +40,20 @@ const Requests = () => {
     // console.log(result);
   }
 
+  const handleRejectRequest = (requestid, status)=>{
+    if( requestid === undefined|| status == undefined ){
+      console.error("Error: profile Id or status can not be undefined");
+      return false;
+    }
+    const result = rejectRequest(requestid,status)
+    .then(()=>{
+        handleGetRequests()
+    }
+    ).catch((e)=> {console.error(e)});
+  }
+
 
   const personTemplate = (option) => {
-    console.log(option);
     const id = option.id;
     const fullName = option.fullName;
     const requestid = option.requestid;
@@ -57,6 +68,8 @@ const Requests = () => {
           className="pi pi-user"
           style={{ fontSize: "1.5rem", marginRight:"10px" }}
         />
+        { status === 1 ?
+        <>
         <Button
           onClick={()=>{handleApproveRequest(requestid, status)}}
           label="Approve&nbsp;&nbsp;&nbsp;&nbsp;_"
@@ -66,11 +79,22 @@ const Requests = () => {
         />
         &nbsp;&nbsp;
         <Button
+        onClick={()=>{handleRejectRequest(requestid, status)}}
           label="Reject&nbsp;&nbsp;&nbsp;&nbsp;_"
           severity="danger"
           size="small"
           raised
+        /></>
+        : status === 3 ? 
+        <Button
+        // onClick={()=>{handleRejectRequest(requestid, status)}}
+          label="Rejected&nbsp;&nbsp;"
+          severity="secondary"  
+          size="small"
+          outlined
         />
+        :"" }
+        
       </div>
     );
   };

@@ -111,6 +111,18 @@ router.post('/', async function(req, res, next) {
     }
   }
 
+  if(req.query.queryType === "rejectRequest"){
+    console.log("approve Connection request",req.body);    
+    try{
+      // const newRequest = await Connection.create({userid: req.body.fromId, friendid: req.body.toId, status:1});
+      // res.send(newRequest);
+      let result = await Connection.update({ status: 3 }, { where: [{ id:req.body.requestid },{ status:req.body.status }]});
+      res.send(result);
+    } catch(e) {
+      console.log("Something went wrong!",e)
+    }
+  }
+
   if(req.query.queryType === "connectionStatus"){
     console.log("Requesting Connection Status",req.body);    
     try{
