@@ -19,7 +19,7 @@ import ProtectedRoute from './home/ProtectedRoute';
 import AccountSettings from './main/AccountSettings';
 import BlockedIgnored from './main/BlockedIgnored';
 import ViewProfile from './main/ViewProfile';
-import Signup from './main/Signup';
+import Signup from './home/Signup';
 import Connections from './main/Connections';
 import Chat from './main/Chat';
 import Requests from './main/Requests';
@@ -32,9 +32,9 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="help" element={<Help />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="signup" element={<Signup />} />
       </Route>
       <Route path="/main" element={<ProtectedRoute><Main /></ProtectedRoute>} >
-        <Route path="signup" element={<ProtectedRoute><Signup /></ProtectedRoute>} />
         <Route path="feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
         <Route path="editprofile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
         <Route path="desiredPartner" element={<ProtectedRoute><DesiredPartner /></ProtectedRoute>} />

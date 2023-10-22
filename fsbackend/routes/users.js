@@ -2,6 +2,24 @@ var express = require('express');
 var router = express.Router();
 var Users = require("../model/users");
 
+const emptyProfile = {
+    fullName: "",
+    gender:"",
+    religion:"",
+    motherTongue:"",
+    height:"",
+    annualIncome:"",
+    location:"",
+    caste:"",
+    managedBy:"",
+    maritalStatus: "",
+    birthDate: "01/01/1990",
+    aboutMe:"",
+    family:"",
+    education:"",
+    career:""
+  };
+
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
   if(req.query.queryType === 'getUser' && ( req.query.id !== undefined || req.query.email !== undefined )){
@@ -51,7 +69,7 @@ router.post('/', async function(req, res, next) {
   if(req.query.queryType === "registerUser"){
     console.log("User registration request",req.body);
     try{
-    const newUser = await Users.create({ "email":req.body.email, "active": true , "registered": Date().toString()})
+    const newUser = await Users.create({ "email":req.body.email, "profile": emptyProfile , album: '["blank.jpg"]', "active": true , "registered": Date().toString()})
     res.send(newUser);
     }catch{
       res.status(503).end();

@@ -8,7 +8,7 @@ const ProtectedRoute = ({children}) => {
     let location = useLocation();
     // console.log('UserInfo:',UserInfo);
 
-    if(!UserInfo.data.email) {
+    if(!UserInfo.data.id) {
         return <Navigate to="/home/login" state={{ from: location}} replace />
     }
  return children

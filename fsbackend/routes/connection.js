@@ -144,33 +144,6 @@ router.post('/', async function(req, res, next) {
     }
   }
 
-
-  
-
-
-
-//   if(req.query.queryType === "registerUser"){
-//     console.log("User registration request",req.body);
-//     try{
-//     const newUser = await Users.create({ "email":req.body.email, "active": true , "registered": Date().toString()})
-//     res.send(newUser);
-//     }catch{
-//       res.status(503).end();
-//     }
-//   } else {
-//     res.status(400).end();
-//   }
-    // try{
-    //   const response = await Users.findAll({
-    //     where: {
-    //       email: req.query.getUser
-    //     }
-    //   });
-    //     res.send({ count: response.length ,user:response});
-    //   } catch(e){
-    //     res.send(e);
-    //   }
-  
 });
 
 module.exports = router;

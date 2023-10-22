@@ -1,4 +1,4 @@
-const SERVER_URL = "http://localhost:3000";
+const SERVER_URL = window.location.protocol+"//"+window.location.hostname+":3000";
 const VAR1 = "VAR1";
 export default {SERVER_URL, VAR1}
 
