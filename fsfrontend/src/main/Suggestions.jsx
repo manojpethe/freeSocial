@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { loadData } from '../redux/suggestions';
+import { loadProfile, } from '../service/profileService';
+import { loadConnections } from "../redux/connections";
+import { updateData }from "../redux/userProfile";
 
 import profileImage from '../assets/img/merlyn.jpg'
 import { Link } from "react-router-dom";
@@ -9,20 +12,22 @@ import CONST from '../common/constants';
 
 const Suggestions = () => {
   const dispatch = useDispatch();
-  const suggestions = useSelector((state) => state.suggestions.data);
   const userProfile = useSelector((state) => state.userProfile.data);
-
-  // console.log(suggestions);
+  const userInfo = useSelector((state) => state.userInfo.data);
+  const suggestions = useSelector((state) => state.suggestions.data);
 
   useEffect( () => {
-    getSuggestions();
-    // console.log("doing nothing...");  
+    handleLoadProfile();
+
   }, [])
-  
-  const getSuggestions = async () =>{
-    const result = await suggestionsService(userProfile.gender);
-    // console.log(result);
-    dispatch(loadData(result));
+
+  const handleLoadProfile = async ()=> {
+    const result = await loadProfile(userInfo.email);
+    dispatch(updateData(result));
+    if(result.gender){
+      const result2 = await suggestionsService(result.gender);
+      dispatch(loadData(result2));
+    }
   }
 
 // CONST.SERVER_UL+"/filestorage/manoj.pethe@gmail.com/manojpethe.jpg"
@@ -37,7 +42,7 @@ const Suggestions = () => {
         justifyItems:"center"
          }} className="col-6 lg:col-2 md:col-3">
         <Link to={"../viewprofile/"+item.id}>
-          <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL+"/filestorage/"+JSON.parse(item.album)[0]}/>
+          <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL_FILESTORAGE+"/"+JSON.parse(item.album)[0]}/>
           <div className='text-sm' style={{width:"100%", textAlign:"center"}}>{JSON.parse(item.profile).fullName},{JSON.parse(item.profile).location}</div>
         </Link>
       </div>

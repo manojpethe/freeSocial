@@ -8,7 +8,7 @@ import CONST from "../common/constants";
 
 const emptyProfile = {
   fullName: "",
-  gender:"Male",
+  gender:"",
   religion:"",
   motherTongue:"",
   height:"",
@@ -52,7 +52,7 @@ const Signup = () => {
     axios
       .post(CONST.SERVER_URL + "/users?queryType=registerUser", {
         email: userInfo.email,
-        // profile: emptyProfile,
+        profile: emptyProfile,
       })
       .then((res) => {
         const id = res.data.id;

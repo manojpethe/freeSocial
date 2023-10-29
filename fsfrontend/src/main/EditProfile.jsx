@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
 import axios from 'axios';
-import profileService from '../service/profileService';
+import { profileService } from '../service/profileService';
 import CONST from '../common/constants';
 
 // let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };

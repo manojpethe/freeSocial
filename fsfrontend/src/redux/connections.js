@@ -18,6 +18,9 @@ export const connectionsSlice = createSlice({
     addData: (state) => {
       state.data = {}
     },
+    clearConnections: (state) => {
+      state.data = {}
+    }
     // incrementByAmount: (state, action) => {
     //   state.connections += action.payload
     // },
@@ -25,6 +28,6 @@ export const connectionsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { loadConnections, addData } = connectionsSlice.actions
+export const { loadConnections, addData, clearConnections } = connectionsSlice.actions
 
 export default connectionsSlice.reducer

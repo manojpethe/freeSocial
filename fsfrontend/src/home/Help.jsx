@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import profileService from '../service/profileService';
+import { profileService } from '../service/profileService';
 import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { Button } from 'primereact/button';

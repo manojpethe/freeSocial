@@ -77,7 +77,7 @@ const ViewProfile = (props) => {
     <Panel>
       <div style={{textAlign:"start"}}>
       { album[0] !== undefined ?
-      <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL+"/filestorage/"+album[0]}/>
+      <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL_FILESTORAGE+"/"+album[0]}/>
       : ""}
       <br/>
       <center>

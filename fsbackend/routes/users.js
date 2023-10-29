@@ -69,7 +69,7 @@ router.post('/', async function(req, res, next) {
   if(req.query.queryType === "registerUser"){
     console.log("User registration request",req.body);
     try{
-    const newUser = await Users.create({ "email":req.body.email, "profile": emptyProfile , album: '["blank.jpg"]', "active": true , "registered": Date().toString()})
+    const newUser = await Users.create({ "email":req.body.email, "profile": req.body.profile , album: '["blank.jpg"]', "active": true , "registered": Date().toString()})
     res.send(newUser);
     }catch{
       res.status(503).end();

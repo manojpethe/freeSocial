@@ -18,6 +18,9 @@ export const suggestionsSlice = createSlice({
     addData: (state) => {
       state.data = {}
     },
+    clearSuggestions: (state) => {
+      state.data = []
+    },
     // incrementByAmount: (state, action) => {
     //   state.suggestions += action.payload
     // },
@@ -25,6 +28,6 @@ export const suggestionsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { loadData, addData } = suggestionsSlice.actions
+export const { loadData, addData, clearSuggestions } = suggestionsSlice.actions
 
 export default suggestionsSlice.reducer
