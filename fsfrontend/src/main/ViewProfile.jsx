@@ -3,6 +3,7 @@ import { useParams,useNavigate  } from 'react-router-dom'
 import { Button } from 'primereact/button';
 import { Panel } from 'primereact/panel';
 import { Toast } from 'primereact/toast';
+import { Galleria } from 'primereact/galleria';
 // import profileImage from '../assets/img/merlyn.jpg'
 import userService from '../service/userService';
 import { requestConnection, connectionStatus, approveRequest } from '../service/connectionService';
@@ -26,6 +27,7 @@ const ViewProfile = (props) => {
   const getProfile =  async (email)=> {
     userService(email).then((response)=>{
       setProfile(response.user.profile);
+      console.log(response.user.album);
       setAlbum(response.user.album);
       setProfileId(response.user.id);
       setConnectionStatus(userInfo.id, response.user.id);
@@ -38,7 +40,6 @@ const ViewProfile = (props) => {
   }
 
   const setConnectionStatus = async (fromId,toId) =>{
-    // console.log(fromId,toId);
     if(fromId == 0 || toId === 0 || fromId == undefined || toId === undefined){
       console.error("Error: profile Id can not be 0 or undefined");
       return false;
@@ -56,13 +57,11 @@ const ViewProfile = (props) => {
       console.error("Error: profile Id or status can not be undefined");
       return false;
     }
-    // console.log("approve Request!....", requestid,status);
     const result = approveRequest(requestid,status)
     .then(()=>{
       setConnectionStatus(userInfo.id,profileId);
     }
     ).catch((e)=> {console.error(e)});
-    // console.log(result);
   }
   
   useEffect(() => {
@@ -76,9 +75,10 @@ const ViewProfile = (props) => {
     <div className="col-12 lg:col-6 md:col-6">
     <Panel>
       <div style={{textAlign:"start"}}>
-      { album[0] !== undefined ?
+      {/* { album[0] !== undefined ?
       <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL_FILESTORAGE+"/"+album[0]}/>
-      : ""}
+      : ""} */}
+      <PhotoAlbum listOfImages={album} />
       <br/>
       <center>
       { isConnected === 0 ?
@@ -107,6 +107,7 @@ const ViewProfile = (props) => {
       <div>Family:<br/>{profile.family}</div><br/>
       <br/>
       </div>
+        
       <center>
         <Button severity="secondary" text raised onClick={()=>{ navigate(-1)}}>....back</Button>
         {/* <Button onClick={()=>{ setConnectionStatus()}}>Check Status</Button> */}
@@ -116,6 +117,39 @@ const ViewProfile = (props) => {
       </div>
     </>
   )
+}
+
+
+const PhotoAlbum = (props) => {
+
+  let images = [];
+  const size = props.listOfImages.length;
+
+  for(let i = 0 ; i < size ; i++ ){
+    images.push({
+      itemImageSrc: CONST.SERVER_URL_FILESTORAGE+"/"+props.listOfImages[i],
+      thumbnailImageSrc: '',
+      alt: 'alt text',
+      title: 'title text'
+    });
+  }
+
+  // console.log(images);
+
+  const itemTemplate = (item) => {
+      return <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%', display: 'block' }} />;
+  }
+
+  const thumbnailTemplate = (item) => {
+      return <img src={item.itemImageSrc} alt={item.alt} style={{ width:'25%', display: 'block' }} />;
+  }
+
+  return (
+  <>
+    <Galleria value={images} thumbnail={thumbnailTemplate} item={itemTemplate} circular style={{ maxWidth: '640px' }} showItemNavigators showThumbnails={true} />
+  </>
+  )
+
 }
 
 export default ViewProfile
