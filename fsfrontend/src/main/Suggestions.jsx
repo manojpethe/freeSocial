@@ -4,6 +4,7 @@ import { loadData } from '../redux/suggestions';
 import { loadProfile, } from '../service/profileService';
 import { loadConnections } from "../redux/connections";
 import { updateData }from "../redux/userProfile";
+import { Button } from 'primereact/button';
 
 import profileImage from '../assets/img/merlyn.jpg'
 import { Link } from "react-router-dom";
@@ -42,8 +43,10 @@ const Suggestions = () => {
         justifyItems:"center"
          }} className="col-6 lg:col-2 md:col-3">
         <Link to={"../viewprofile/"+item.id}>
+          <div>
           <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL_FILESTORAGE+"/"+JSON.parse(item.album)[0]}/>
-          <div className='text-sm' style={{width:"100%", textAlign:"center"}}>{JSON.parse(item.profile).fullName},{JSON.parse(item.profile).location}</div>
+          <div style={{textAlign:"center"}}><Button severity="secondary" text >{JSON.parse(item.profile).fullName}, {JSON.parse(item.profile).location}</Button></div>
+          </div>
         </Link>
       </div>
       ))}

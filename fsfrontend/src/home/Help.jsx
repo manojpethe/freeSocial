@@ -5,6 +5,8 @@ import { updateData } from '../redux/userProfile';
 import { Button } from 'primereact/button';
 import { FileUpload } from 'primereact/fileupload';
 import CONST from '../common/constants'; 
+import DataList from '../main/DataList';
+import CountryList from '../main/CountryList';
 
 import axios from 'axios';
 
@@ -50,7 +52,7 @@ const dummyProfile = {
   return (
     <div>
     <div>This is a Help Page</div>
-    <div style={{width:"100%",height:"70vh",backgroundColor:"white", overflow:"scroll"}}>
+    <div style={{width:"10%",height:"10vh",backgroundColor:"white", overflow:"scroll"}}>
     <div style={{ display:"flex"}} key={"item.id"}>
         <div style={{ marginLeft: "auto", backgroundColor:"green", color:"white"}}>{"item.message"}</div>
       </div>
@@ -58,6 +60,9 @@ const dummyProfile = {
     <Button onClick={uploadProfile}>Update Profile</Button><p/>
     <Button onClick={sendMessage}> Send Message</Button>
     <p/>
+    <DataList />
+    <CountryList />
+
     <FileUpload name="fileUploadClient" url={'http://localhost:3000/fileUpload?email=manoj.pethe@gmail.com'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
     </div>
   )

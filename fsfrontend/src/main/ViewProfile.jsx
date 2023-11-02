@@ -27,7 +27,6 @@ const ViewProfile = (props) => {
   const getProfile =  async (email)=> {
     userService(email).then((response)=>{
       setProfile(response.user.profile);
-      console.log(response.user.album);
       setAlbum(response.user.album);
       setProfileId(response.user.id);
       setConnectionStatus(userInfo.id, response.user.id);
@@ -146,7 +145,7 @@ const PhotoAlbum = (props) => {
 
   return (
   <>
-    <Galleria value={images} thumbnail={thumbnailTemplate} item={itemTemplate} circular style={{ maxWidth: '640px' }} showItemNavigators showThumbnails={true} />
+    <Galleria value={images} thumbnail={thumbnailTemplate} item={itemTemplate} circular style={{ maxWidth: '640px' }} showItemNavigators showThumbnails={false} />
   </>
   )
 

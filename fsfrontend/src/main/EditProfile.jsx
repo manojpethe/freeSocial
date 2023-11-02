@@ -8,12 +8,14 @@ import { Calendar } from 'primereact/calendar';
 import { RadioButton } from 'primereact/radiobutton';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { FileUpload } from 'primereact/fileupload';
+import { ListBox } from "primereact/listbox";
 import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
 import axios from 'axios';
 import { profileService } from '../service/profileService';
 import CONST from '../common/constants';
+import data from "../common/countryflaglist";
 
 // let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
 
@@ -25,6 +27,7 @@ const emptyProfile = {
   height:"",
   annualIncome:"",
   location:"",
+  country:"",
   caste:"",
   managedBy:"",
   maritalStatus: "",
@@ -71,6 +74,7 @@ const ShowBasicInfo = (props) => {
         <div className="col-6 lg:col-6 md:col-6">Mother Tongue<br />{userProfile?.motherTongue}</div>
         <div className="col-6 lg:col-6 md:col-6">Annual Income<br />{userProfile?.annualIncome}</div>
         <div className="col-6 lg:col-6 md:col-6">Location <br />{userProfile?.location}</div>
+        <div className="col-6 lg:col-6 md:col-6">Country <br />{userProfile?.country}</div>
         <div className="col-6 lg:col-6 md:col-6">Caste<br />{userProfile?.caste}</div>
         <div className="col-6 lg:col-6 md:col-6">Profile Managed by<br />{userProfile?.managedBy}</div>
         <div className="col-6 lg:col-6 md:col-6">Gender<br />{userProfile?.gender}</div>
@@ -90,12 +94,31 @@ const EditBasicInfo = (props) => {
   const [height, setHeight] = useState(userProfile.height || "");
   const [annualIncome, setAnnualIncome] = useState(userProfile.annualIncome || "");
   const [location, setLocation] = useState(userProfile.location || "");
+  const [country, setCountry] = useState(userProfile.country || "");
+  const [countryOption, setCountryOption] = useState(data.find((item)=>(item.name === userProfile.country)));
   const [caste, setCaste] = useState(userProfile.caste|| "");
   const [managedBy, setManagedBy] = useState(userProfile.managedBy|| "");
 
   const handleUpdateBasicInfo = async ()=> {
-    const result = await profileService(userInfo.email,{ ...userProfile, fullName, gender, height, religion, motherTongue, caste, location, annualIncome,managedBy });
+    const result = await profileService(userInfo.email,{ ...userProfile, fullName, gender, height, religion, motherTongue, caste, location, country, annualIncome,managedBy });
     dispatch(updateData(result));
+  }
+
+  const countryTemplate = (option) => {
+    const id = option.id;
+    const name = option.name;
+    return (
+      <div style={{ height: "2rem" }} className="flex align-items-center">
+        <div style={{ width: "80%" }}>{name}</div>
+        &nbsp;&nbsp;
+        <span style={{ fontSize: "2rem" }}>{option.emoji}</span>
+      </div>
+    );
+  };
+
+  const handleSelectCountry = (e) => {
+    setCountryOption(e.value);
+    setCountry(e.value.name);
   }
 
   return (<div>
@@ -114,6 +137,21 @@ const EditBasicInfo = (props) => {
       <div className="col-12 lg:col-8 md:col-8"><InputText value={caste} onChange={(e) => { setCaste(e.target.value) }} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Location</div>
       <div className="col-12 lg:col-8 md:col-8"><InputText value={location} onChange={(e) => { setLocation(e.target.value) }} style={{ "width": "100%" }} /></div>
+      <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Country</div>
+      <div className="col-12 lg:col-8 md:col-8">
+      Selected:<b> { country ? country : "none" } </b>
+      <br/>
+      <ListBox
+        filter
+        value={countryOption}
+        onChange={(e) => handleSelectCountry(e)}
+        options={data}
+        optionLabel="name"
+        className="w-full md:w-14rem"
+        listStyle={{ maxHeight: "250px" }}
+        itemTemplate={countryTemplate}
+      />
+      </div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Annual Income</div>
       <div className="col-12 lg:col-8 md:col-8"><InputText value={annualIncome} onChange={(e) => { setAnnualIncome(e.target.value) }} style={{ "width": "100%" }} /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Profile Managed by</div>

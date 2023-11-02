@@ -27,7 +27,7 @@ const Main = () => {
 
   const handleGetConnections = async ()=> {
     const result = await getConnections(userInfo.id);
-    dispatch(updateData(result));
+    dispatch(loadConnections(result));
   }
 
   return (
