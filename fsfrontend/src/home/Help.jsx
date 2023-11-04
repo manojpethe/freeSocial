@@ -61,7 +61,7 @@ const dummyProfile = {
     <Button onClick={sendMessage}> Send Message</Button>
     <p/>
     <DataList />
-    <CountryList />
+    {/* <CountryList /> */}
 
     <FileUpload name="fileUploadClient" url={'http://localhost:3000/fileUpload?email=manoj.pethe@gmail.com'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
     </div>

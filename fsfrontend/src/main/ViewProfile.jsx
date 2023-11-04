@@ -95,7 +95,7 @@ const ViewProfile = (props) => {
       </center>
       <br/>
       <div>Name:{profile.fullName} Height: {profile.height}</div>
-      <div>Location:{profile.location} Age: { moment(Date.now()).format('YYYY')-moment(profile.birthDate).format('YYYY')}</div><br/>
+      <div>Location/City:{profile.location} Country:{profile.country} Age: { moment(Date.now()).format('YYYY')-moment(profile.birthDate).format('YYYY')}</div><br/>
       <div>Status:{profile.maritalStatus}</div>
       <div>Mother Tongue:{profile.motherTongue}</div>
       <div>Caste:{profile.caste} Religion:{profile.religion}</div>

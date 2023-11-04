@@ -41,9 +41,9 @@ const panelFooterTemplate = () => {
 
   return (
     <>
-    <div style={{ fontSize: "3rem" }}>{ selectedCountry ? "You have selected:"+ selectedCountry.emoji +selectedCountry.name : "" }</div>
-    <div style={{ fontSize: "3rem" }}>{ selectedCountry ? <img width="100px" src={selectedCountry.image} /> : "" }</div>
-      <ListBox
+    {/* <div style={{ fontSize: "3rem" }}>{ selectedCountry ? "You have selected:"+ selectedCountry.emoji +selectedCountry.name : "" }</div>
+    <div style={{ fontSize: "3rem" }}>{ selectedCountry ? <img width="100px" src={selectedCountry.image} /> : "" }</div> */}
+      {/* <ListBox
         filter
         value={selectedCountry}
         onChange={(e) => setSelectedCountry(e.value)}
@@ -52,8 +52,8 @@ const panelFooterTemplate = () => {
         className="w-full md:w-14rem"
         listStyle={{ maxHeight: "250px" }}
         itemTemplate={countryTemplate}
-      />
-    <br/>
+      /> */}
+    {/* <br/> */}
       <MultiSelect
         filter
         value={selectedCountries}

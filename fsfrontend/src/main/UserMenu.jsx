@@ -94,8 +94,8 @@ const UserMenu = () => {
     );
 
     return (
-        <div className="card sticky">
-            <Menubar model={items} start={start} end={end} style={{"zIndex":"2147483647"}} />
+        <div className="card z-5 relative sticky">
+            <Menubar model={items} start={start} end={end} />
         </div>
     )
 }
