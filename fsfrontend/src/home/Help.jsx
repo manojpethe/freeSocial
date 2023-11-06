@@ -48,6 +48,22 @@ const dummyProfile = {
     console.log(response);
   }
 
+  const goFullScreen = () => {
+    if(isMobile() && !document.fullscreenElement){
+      console.log("over here");
+      document.documentElement.requestFullscreen();
+    } else {
+      console.log("you are on desktop, cant go fullscreen");
+    }
+  }
+
+
+  const isMobile = ()=>{
+    // console.log(navigator.userAgent.indexOf("iPhone"));
+    // console.log(navigator.userAgent.indexOf("Android"));
+    const result = ( navigator.userAgent.indexOf("iPhone") || navigator.userAgent.indexOf("Android"));
+    if(result === -1){return false}else{ return true};
+  }
 
   return (
     <div>
@@ -59,9 +75,11 @@ const dummyProfile = {
     </div>
     <Button onClick={uploadProfile}>Update Profile</Button><p/>
     <Button onClick={sendMessage}> Send Message</Button>
+    <Button severity='info' onClick={goFullScreen}>Full Screen</Button>
     <p/>
     <DataList />
     {/* <CountryList /> */}
+    
 
     <FileUpload name="fileUploadClient" url={'http://localhost:3000/fileUpload?email=manoj.pethe@gmail.com'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
     </div>

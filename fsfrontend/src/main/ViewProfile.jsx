@@ -1,7 +1,7 @@
 import { useState, useEffect} from 'react'
 import { useParams,useNavigate  } from 'react-router-dom'
 import { Button } from 'primereact/button';
-import { Panel } from 'primereact/panel';
+import { ScrollPanel } from 'primereact/scrollpanel';
 import { Toast } from 'primereact/toast';
 import { Galleria } from 'primereact/galleria';
 // import profileImage from '../assets/img/merlyn.jpg'
@@ -70,9 +70,9 @@ const ViewProfile = (props) => {
   return (
   <>
   <div className="grid" style={{ "width": "100%" }}>
-  <div className="col-3 lg:col-3 md:col-3">&nbsp;</div>
-    <div className="col-12 lg:col-6 md:col-6">
-    <Panel>
+  <div className="col-12 lg:col-3 md:col-3 sm:col-0"></div>
+  <div className="col-12 lg:col-6 md:col-6 sm:col-12">
+    <ScrollPanel style={{ width: "100%", height: "vh80", marginLeft:"10px" }}>
       <div style={{textAlign:"start"}}>
       {/* { album[0] !== undefined ?
       <img style={{marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL_FILESTORAGE+"/"+album[0]}/>
@@ -107,11 +107,10 @@ const ViewProfile = (props) => {
       <br/>
       </div>
         
-      <center>
+      {/* <center>
         <Button severity="secondary" text raised onClick={()=>{ navigate(-1)}}>....back</Button>
-        {/* <Button onClick={()=>{ setConnectionStatus()}}>Check Status</Button> */}
-      </center>
-      </Panel>
+      </center> */}
+      </ScrollPanel>
       </div>
       </div>
     </>

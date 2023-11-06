@@ -20,6 +20,20 @@ div.sticky {
   z-index: -1;
 }
 
+.floatBottomMenu{
+  position:fixed;
+  height:50px;
+  bottom:1px;
+  right:1px;
+  left: 1px;
+  background-color:#dbe0dd;
+  color:#242323;
+  border-radius:10px;
+  text-align:center;
+  align-items:center;
+  box-shadow: 2px 2px 3px #999;
+}
+
 @media screen and (max-width: 767px) {
   #forDesktop {
     display: none;

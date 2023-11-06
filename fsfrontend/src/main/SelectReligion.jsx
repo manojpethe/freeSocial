@@ -57,14 +57,14 @@ const EditReligion = (props) => {
   
     return (
       <>
-        <Dropdown value={selectedReligion} onChange={(e) => handleReligion(e.value)} options={religionOptions} optionLabel="name"
-          placeholder="Select Religion" className="w-full" style={{ "width": "100%" }} />
-      <p />
+        {/* <Dropdown value={selectedReligion} onChange={(e) => handleReligion(e.value)} options={religionOptions} optionLabel="name"
+          placeholder="Select Religion" className="w-full" style={{ "width": "100%" }} /> */}
+      {/* <p /> */}
       <MultiSelect
         filter
-        value={selectedReligions}
+        value={props.religion}
         options={religionOptions}
-        onChange={(e) => setSelectedReligions(e.value)}
+        onChange={(e) => setReligion(e.value)}
         optionLabel="name"
         placeholder="Select Religions"
         itemTemplate={relgionTemplate}

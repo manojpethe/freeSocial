@@ -6,6 +6,7 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { getMessages, newMessage,clearUnseen } from "../service/chatService";
 import { Panel } from "primereact/panel";
+import { ScrollPanel } from "primereact/scrollpanel";
 import moment from "moment";
 
 const Chat = () => {
@@ -63,7 +64,7 @@ const Chat = () => {
               marginRight: "10px",
               padding: "2px",
               marginLeft: "auto",
-              backgroundColor: "#1b662d",
+              backgroundColor: "gray",
               color: "white",
             }}
           >
@@ -81,8 +82,8 @@ const Chat = () => {
               marginLeft: "10px",
               padding: "2px",
               marginRight: "auto",
-              backgroundColor: "gray",
-              color: "white",
+              backgroundColor: "pink",
+              color: "black",
             }}
           >
             {item.message} <sub><span className="text-xs"> {moment(item.createdAt).format('HH:MM')} </span></sub>
@@ -100,14 +101,15 @@ const Chat = () => {
     <>
       <div className="grid" style={{ width: "100%" }}>
         <div className="col-12 lg:col-3 md:col-3 "></div>
-        <div className="col-12 lg:col-6 md:col-6" style={{ marginTop: "5px" }}>
-          <Panel header={getProfileName(params.id)}>
+        <div className="col-12 lg:col-6 md:col-6" style={{marginLeft:"5px"}}>
+          <ScrollPanel header={getProfileName(params.id)}>
+            <div className="text-base" style={{"textAlign":"center"}} ><b>{getProfileName(params.id)}</b></div>
             <div
               style={{
                 padding: "1px",
                 width: "100%",
-                height: "70vh",
-                backgroundColor: "#323633",
+                height: "66vh",
+                backgroundColor: "white",
                 overflow: "scroll",
               }}
             >
@@ -144,7 +146,7 @@ const Chat = () => {
                 {/* <button style={{width:"100%", borderBlockColor:"green", backgroundColor:"green"}} className='p-button'><center>Send</center></button> */}
               </div>
             </div>
-          </Panel>
+          </ScrollPanel>
           {/* <div className="col-12 lg:col-3 md:col-3 "></div> */}
         </div>
       </div>
