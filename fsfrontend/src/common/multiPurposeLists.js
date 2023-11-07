@@ -1,4 +1,4 @@
-const data = [
+const countryFlagList = [
     {
         "name": "Ascension Island",
         "code": "AC",
@@ -1828,4 +1828,16 @@ const data = [
     }
 ]
 
-export default data;
+const religionFlagList = [
+    { name: 'Hindu', code: 'Hindu', emoji:'🕉️' },
+    { name: 'Buddhist', code: 'Buddhist', emoji:'☸' },
+    { name: 'Sikh', code: 'Sikh', emoji:'🪯' },
+    { name: 'Jain', code: 'Jain', emoji:'࿗' },
+    { name: 'Parsi', code: 'Parsi',emoji:'🔥' },
+    { name: 'Christian', code: 'Christian',emoji:'✝️' },
+    { name: 'Islam', code: 'Islam',emoji:'☪️' },
+    { name: 'Judaism', code: 'Judaism',emoji:'✡️' },
+    { name: 'undefined', code: 'undefined',emoji:'🖖🏽' },
+  ];
+
+export { countryFlagList, religionFlagList };

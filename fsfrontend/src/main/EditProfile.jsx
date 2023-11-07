@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 import axios from 'axios';
 import { profileService } from '../service/profileService';
 import CONST from '../common/constants';
-import data from "../common/countryflaglist";
+import { countryFlagList } from "../common/multiPurposeLists";
 
 // let basicInfo = { fullName: "Manoj Pethe", height: "6.4", relgion: "Hindu", motherTongue: "marathi", caste: "Bramhin", annualIncome: "", city: "Pune", state: "Maharashtra", country: "India", profileManager: "Manoj Pethe" };
 
@@ -95,7 +95,7 @@ const EditBasicInfo = (props) => {
   const [annualIncome, setAnnualIncome] = useState(userProfile.annualIncome || "");
   const [location, setLocation] = useState(userProfile.location || "");
   const [country, setCountry] = useState(userProfile.country || "");
-  const [countryOption, setCountryOption] = useState(data.find((item)=>(item.name === userProfile.country)));
+  const [countryOption, setCountryOption] = useState(countryFlagList.find((item)=>(item.name === userProfile.country)));
   const [caste, setCaste] = useState(userProfile.caste|| "");
   const [managedBy, setManagedBy] = useState(userProfile.managedBy|| "");
 
@@ -145,7 +145,7 @@ const EditBasicInfo = (props) => {
         filter
         value={countryOption}
         onChange={(e) => handleSelectCountry(e)}
-        options={data}
+        options={countryFlagList}
         optionLabel="name"
         className="w-full md:w-14rem"
         listStyle={{ maxHeight: "250px" }}

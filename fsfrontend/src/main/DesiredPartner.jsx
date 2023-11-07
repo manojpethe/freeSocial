@@ -7,19 +7,7 @@ import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePreferencesData } from '../redux/userProfile';
 import { updatePreferences, loadPreferences } from '../service/profileService';
-import data from "../common/countryflaglist";
-
-const religionOptions = [
-  { name: 'Hindu', code: 'Hindu', emoji:'🕉️' },
-  { name: 'Buddhist', code: 'Buddhist', emoji:'☸' },
-  { name: 'Sikh', code: 'Sikh', emoji:'🪯' },
-  { name: 'Jain', code: 'Jain', emoji:'࿗' },
-  { name: 'Parsi', code: 'Parsi',emoji:'🔥' },
-  { name: 'Christian', code: 'Christian',emoji:'✝️' },
-  { name: 'Islam', code: 'Islam',emoji:'☪️' },
-  { name: 'Judaism', code: 'Judaism',emoji:'✡️' },
-  { name: 'undefined', code: 'undefined',emoji:'🖖🏽' },
-];
+import { countryFlagList, religionFlagList } from "../common/multiPurposeLists";
 
 const DesiredPartner = () => {
   const userInfo = useSelector((state) => state.userInfo.data);
@@ -41,14 +29,14 @@ const DesiredPartner = () => {
       let finalCountryList = [];
       const loadCountryList = result.countries;
       loadCountryList.forEach(element => {
-        let name = data.find((item)=>(item.name === element))
+        let name = countryFlagList.find((item)=>(item.name === element))
         finalCountryList.push(name);
       });
       setCountries(finalCountryList);
       let finalReligionList = [];
       const loadReligionList = result.religions;
       loadReligionList.forEach(element =>{
-        let name = religionOptions.find((item)=> (item.name === element))
+        let name = religionFlagList.find((item)=> (item.name === element))
          finalReligionList.push(name);
       });
       setReligions(finalReligionList);

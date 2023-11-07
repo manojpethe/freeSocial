@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import data from "../common/countryflaglist";
+import { countryFlagList } from "../common/multiPurposeLists";
 import { ListBox } from "primereact/listbox";
 import { MultiSelect } from "primereact/multiselect";
 
@@ -57,7 +57,7 @@ const panelFooterTemplate = () => {
       <MultiSelect
         filter
         value={props.countries}
-        options={data}
+        options={countryFlagList}
         onChange={(e) => props.setCountries(e.value)}
         optionLabel="name"
         placeholder="Select Countries"

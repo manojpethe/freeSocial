@@ -1,23 +1,13 @@
 import { useState } from "react";
-import { Dropdown } from "primereact/dropdown";
+// import { Dropdown } from "primereact/dropdown";
 import { MultiSelect } from "primereact/multiselect";
+import { religionFlagList } from "../common/multiPurposeLists";
 
 const EditReligion = (props) => {
     const religion = props.religions;
     const setReligion = props.setReligions;
     const [selectedReligion, setSelectedReligion] = useState({ name: (religion || 'undefined'), code: (religion || 'undefined') });
     // const [selectedReligions, setSelectedReligions] = useState([]);
-    const religionOptions = [
-      { name: 'Hindu', code: 'Hindu', emoji:'🕉️' },
-      { name: 'Buddhist', code: 'Buddhist', emoji:'☸' },
-      { name: 'Sikh', code: 'Sikh', emoji:'🪯' },
-      { name: 'Jain', code: 'Jain', emoji:'࿗' },
-      { name: 'Parsi', code: 'Parsi',emoji:'🔥' },
-      { name: 'Christian', code: 'Christian',emoji:'✝️' },
-      { name: 'Islam', code: 'Islam',emoji:'☪️' },
-      { name: 'Judaism', code: 'Judaism',emoji:'✡️' },
-      { name: 'undefined', code: 'undefined',emoji:'🖖🏽' },
-    ];
   
     const handleReligion = (selectReligion) => {
       setReligion(selectReligion.code);
@@ -64,7 +54,7 @@ const EditReligion = (props) => {
       <MultiSelect
         filter
         value={religion}
-        options={religionOptions}
+        options={religionFlagList}
         onChange={(e) => setReligion(e.value)}
         optionLabel="name"
         placeholder="Select Religions"
