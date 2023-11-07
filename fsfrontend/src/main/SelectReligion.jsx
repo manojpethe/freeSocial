@@ -3,19 +3,20 @@ import { Dropdown } from "primereact/dropdown";
 import { MultiSelect } from "primereact/multiselect";
 
 const EditReligion = (props) => {
-    const religion = props.religion;
-    const setReligion = props.setReligion;
+    const religion = props.religions;
+    const setReligion = props.setReligions;
     const [selectedReligion, setSelectedReligion] = useState({ name: (religion || 'undefined'), code: (religion || 'undefined') });
-    const [selectedReligions, setSelectedReligions] = useState([]);
+    // const [selectedReligions, setSelectedReligions] = useState([]);
     const religionOptions = [
       { name: 'Hindu', code: 'Hindu', emoji:'🕉️' },
-      { name: 'Sikh', code: 'Sikh', emoji:'✝️' },
-      { name: 'Jain', code: 'Jain', emoji:'🛕' },
-      { name: 'Parsi', code: 'Parsi',emoji:'✝️' },
+      { name: 'Buddhist', code: 'Buddhist', emoji:'☸' },
+      { name: 'Sikh', code: 'Sikh', emoji:'🪯' },
+      { name: 'Jain', code: 'Jain', emoji:'࿗' },
+      { name: 'Parsi', code: 'Parsi',emoji:'🔥' },
       { name: 'Christian', code: 'Christian',emoji:'✝️' },
-      { name: 'Islam', code: 'Islam',emoji:'✝️' },
-      { name: 'Judaism', code: 'Judaism',emoji:'✝️' },
-      { name: 'undefined', code: 'undefined',emoji:'✝️' },
+      { name: 'Islam', code: 'Islam',emoji:'☪️' },
+      { name: 'Judaism', code: 'Judaism',emoji:'✡️' },
+      { name: 'undefined', code: 'undefined',emoji:'🖖🏽' },
     ];
   
     const handleReligion = (selectReligion) => {
@@ -62,7 +63,7 @@ const EditReligion = (props) => {
       {/* <p /> */}
       <MultiSelect
         filter
-        value={props.religion}
+        value={religion}
         options={religionOptions}
         onChange={(e) => setReligion(e.value)}
         optionLabel="name"

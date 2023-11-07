@@ -74,7 +74,19 @@ router.post('/', async function(req, res, next) {
     }catch{
       res.status(503).end();
     }
-  } else {
+  }
+
+  if(req.query.queryType === "updatePreferences"){
+    // console.log("User preferences update request",req.body);
+    try{
+      let result = await Users.update({ preferences : req.body }, { where: { id: req.query.id }});
+      res.send(req.body).status(200).end();
+    }catch{
+      res.status(503).end();
+    }
+  } 
+  
+  if(req.query.queryType === ""|| req.query.queryType === undefined) {
     res.status(400).end();
   }
     // try{

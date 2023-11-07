@@ -1,22 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Slider } from "primereact/slider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import CountryList from "./CountryList";
 import SelectReligion from "./SelectReligion";
 import { Button } from "primereact/button";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePreferencesData } from '../redux/userProfile';
+import { updatePreferences, loadPreferences } from '../service/profileService';
+import data from "../common/countryflaglist";
+
+const religionOptions = [
+  { name: 'Hindu', code: 'Hindu', emoji:'🕉️' },
+  { name: 'Buddhist', code: 'Buddhist', emoji:'☸' },
+  { name: 'Sikh', code: 'Sikh', emoji:'🪯' },
+  { name: 'Jain', code: 'Jain', emoji:'࿗' },
+  { name: 'Parsi', code: 'Parsi',emoji:'🔥' },
+  { name: 'Christian', code: 'Christian',emoji:'✝️' },
+  { name: 'Islam', code: 'Islam',emoji:'☪️' },
+  { name: 'Judaism', code: 'Judaism',emoji:'✡️' },
+  { name: 'undefined', code: 'undefined',emoji:'🖖🏽' },
+];
 
 const DesiredPartner = () => {
-  const [ageRange, setAgeRange] = useState([20, 36]);
-  const [religion, setReligion] = useState("");
+  const userInfo = useSelector((state) => state.userInfo.data);
+  const preferences = useSelector((state) => state.userProfile.preferences);
+  const dispatch = useDispatch();
+  const [ageRange, setAgeRange] = useState([0, 100]);
+  const [religions, setReligions] = useState([]);
   const [countries, setCountries] = useState([]);
 
-  const handleSave = () => {
+  useEffect(() => {
+    handleLoadPreferences();
+  }, [])
+
+  const handleLoadPreferences = async (id)=> {
+    const result = await loadPreferences(userInfo.id);
+    if(result){
+      dispatch(updatePreferencesData(result));
+      setAgeRange(result.ageRange);
+      let finalCountryList = [];
+      const loadCountryList = result.countries;
+      loadCountryList.forEach(element => {
+        let name = data.find((item)=>(item.name === element))
+        finalCountryList.push(name);
+      });
+      setCountries(finalCountryList);
+      let finalReligionList = [];
+      const loadReligionList = result.religions;
+      loadReligionList.forEach(element =>{
+        let name = religionOptions.find((item)=> (item.name === element))
+         finalReligionList.push(name);
+      });
+      setReligions(finalReligionList);
+    }
+  }
+
+  const handleSave = (ageRange,religions,countries) => {
+    const transformedReligions = religions.map((item)=>(item.name))
+    const transformedCountries = countries.map((item)=>(item.name));
     const preferences = {
       ageRange,
-      religion,
-      countries
+      religions: transformedReligions,
+      countries: transformedCountries
     }
-    console.log(preferences);
+    updatePreferences(userInfo.id,preferences);
   }
 
   return (
@@ -40,23 +87,22 @@ const DesiredPartner = () => {
             <div className="text-lg">
               <b>Partner Preferences</b>
             </div>
-            <p className="text-base text-slate-400">
-              Hint: Choose country, religion, age of your desired partner.
-              <p>
+            <div className="text-base text-slate-400">
+              Hint: Choose country, religions, age of your desired partner.
+              <p/>
                 <b>Religion</b>
-                <SelectReligion religion={religion} setReligion={setReligion} />
-              </p>
-
-            </p>
-            <b>Country</b>
-            <CountryList countries={countries} setCountries={setCountries} />
-            <p />
-
+                <SelectReligion religions={religions} setReligions={setReligions} />
+                <p/>
+                <b>Country</b>
+                <CountryList countries={countries} setCountries={setCountries} />
+                <p/>
             <div className="justify-content-center">
-              Age Range: Mininum:{ageRange[0]} Maximum:{ageRange[1]}
+              <b>Age Range:</b> Mininum:{ageRange[0]} Maximum:{ageRange[1]}
             </div>
-            <p/>
+                <p/>
+            </div>
             <div className="justify-content-center">
+              <p/>
                 <Slider
                   className="w-full"
                   value={ageRange}
@@ -66,7 +112,7 @@ const DesiredPartner = () => {
             </div>
             <p/>
             <div style={{width:"100%"}}>
-              <Button className="wd-full" onClick={()=>{ handleSave() }}>Save Preferences</Button>
+              <Button className="wd-full" onClick={()=>{ handleSave(ageRange,religions,countries) }}>Save Preferences</Button>
             </div>
           </div>
         </ScrollPanel>

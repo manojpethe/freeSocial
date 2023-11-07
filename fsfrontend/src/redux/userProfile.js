@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   data: {
-    fullName: "Chris Hemsworth",
+    fullName: "John Doe",
     gender:"",
     religion:"Christian",
     motherTongue:"English",
@@ -18,6 +18,11 @@ const initialState = {
     education:"Bachelors",
     career:"I wish to continue with the current career"
   },
+  preferences:{
+    ageRange: [],
+    religions:[],
+    countries:[]
+  }
 }
 
 export const userProfileSlice = createSlice({
@@ -38,6 +43,10 @@ export const userProfileSlice = createSlice({
     clearProfile: (state) => {
       state.data = {}
     },
+    updatePreferencesData: (state,action) => {
+      // console.log(state.preferences);
+      state.preferences = { ...state.preferences , ...action.payload }
+    }
     // incrementByAmount: (state, action) => {
     //   state.userInfo += action.payload
     // },
@@ -45,6 +54,6 @@ export const userProfileSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { updateData, clearData, clearProfile } = userProfileSlice.actions
+export const { updateData, clearData, clearProfile, updatePreferencesData } = userProfileSlice.actions
 
 export default userProfileSlice.reducer
