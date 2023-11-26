@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { Slider } from "primereact/slider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import CountryList from "./CountryList";
 import SelectReligion from "./SelectReligion";
+import { Toast } from 'primereact/toast';
 import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePreferencesData } from '../redux/userProfile';
@@ -10,6 +11,7 @@ import { updatePreferences, loadPreferences } from '../service/profileService';
 import { countryFlagList, religionFlagList } from "../common/multiPurposeLists";
 
 const DesiredPartner = () => {
+  const toast = useRef(null);
   const userInfo = useSelector((state) => state.userInfo.data);
   const preferences = useSelector((state) => state.userProfile.preferences);
   const dispatch = useDispatch();
@@ -43,7 +45,7 @@ const DesiredPartner = () => {
     }
   }
 
-  const handleSave = (ageRange,religions,countries) => {
+  const handleSave = async (ageRange,religions,countries) => {
     const transformedReligions = religions.map((item)=>(item.name))
     const transformedCountries = countries.map((item)=>(item.name));
     const preferences = {
@@ -51,11 +53,21 @@ const DesiredPartner = () => {
       religions: transformedReligions,
       countries: transformedCountries
     }
-    updatePreferences(userInfo.id,preferences);
+    const res = await updatePreferences(userInfo.id,preferences);
+    if(res){
+      showToast({severity:'success', summary: 'Success', detail:'Preferences Saved..', life: 1000});
+    } else {
+      showToast({severity:'error', summary: 'Error', detail:'something went wrong...', life: 3000});      
+    };
   }
+
+  const showToast = (message) => {
+    toast.current.show(message);
+  };
 
   return (
     <div className="grid" style={{ width: "100%" }}>
+    <Toast ref={toast} />
       <div className="col-12 lg:col-3 md:col-3 sm:col-0"></div>
       <div className="col-12 lg:col-6 md:col-6 sm:col-12">
         <ScrollPanel

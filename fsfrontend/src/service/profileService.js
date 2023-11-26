@@ -22,7 +22,7 @@ const loadProfile = async (email) => {
       return false;
     });
     
-    return response.data.user.profile;
+    return response?.data?.user?.profile;
         
 };
 
@@ -48,7 +48,7 @@ const updatePreferences = async (id, preferences) => {
       console.log("Something went wrong!:", e);
       return false;
     });
-  return response.data;
+  return response;
 };
 
 export { profileService, loadProfile, updatePreferences, loadPreferences };
