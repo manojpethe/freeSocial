@@ -78,7 +78,7 @@ const Login = () => {
           document.cookie =
             "userInfo=" + JSON.stringify(userInfo) + "; ;max-age=172800;";
           dispatch(login(userInfo));
-          navigate("/main/signup");
+          navigate("/home/signup");
         }
       });
   };
