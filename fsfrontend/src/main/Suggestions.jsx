@@ -30,7 +30,7 @@ const Suggestions = () => {
 
   const handleLoadProfile = async ()=> {
     const result = await loadProfile(userInfo.email);
-    console.log(result);
+    // console.log(result);
     if(!result){
       showToast({severity:'error', summary: 'Error', detail:'something went wrong...', life: 3000});      
     } else {

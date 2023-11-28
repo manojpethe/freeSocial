@@ -20,6 +20,7 @@ const Search = () => {
   const [ageRange, setAgeRange] = useState([0, 100]);
   const [religions, setReligions] = useState([]);
   const [countries, setCountries] = useState([]);
+  const [searchResults,setSearchResults] = useState([]);
 
   useEffect(() => {
     handleLoadPreferences();
@@ -64,11 +65,12 @@ const Search = () => {
     console.log(searchCriteria);
     const res = await searchService(userInfo.id,userProfile.gender,searchCriteria);
     console.log(res);
-    // if(res){
-    //   showToast({severity:'success', summary: 'Success', detail:'Preferences Saved..', life: 1000});
-    // } else {
-    //   showToast({severity:'error', summary: 'Error', detail:'something went wrong...', life: 3000});      
-    // };
+    if(res){
+      setSearchResults(res);
+      showToast({severity:'success', summary: 'Success', detail:'Found records', life: 1000});
+    } else {
+      showToast({severity:'error', summary: 'Error', detail:'something went wrong...', life: 3000});      
+    };
   }
 
   return (
@@ -122,6 +124,7 @@ const Search = () => {
             </div>
           </div>
         </ScrollPanel>
+        <div>results: {searchResults.length}</div>
       </div>
       <div className="col-12 lg:col-3 md:col-3 sm:col-0"></div>
     </div>
