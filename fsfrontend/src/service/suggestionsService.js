@@ -10,4 +10,13 @@ const suggestionsService = async (id,gender) => {
     return response.data;
 }
 
-export default suggestionsService;
+const searchService = async (id,gender,criteria) => {
+    const response = await axios.post(CONST.SERVER_URL+"/suggestions?queryType=search&id="+id+"&gender="+gender,criteria)
+    .catch((e)=>{
+        console.log("Something went wrong!");
+        return [];
+    })
+    return response.data;
+}
+
+export { suggestionsService, searchService };

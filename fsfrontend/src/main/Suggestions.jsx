@@ -9,7 +9,7 @@ import { Toast } from 'primereact/toast';
 
 import profileImage from '../assets/img/merlyn.jpg'
 import { Link } from "react-router-dom";
-import suggestionsService from '../service/suggestionsService';
+import { suggestionsService } from '../service/suggestionsService';
 import CONST from '../common/constants'; 
 
 const Suggestions = () => {
