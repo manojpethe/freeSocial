@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Slider } from "primereact/slider";
 import { ScrollPanel } from "primereact/scrollpanel";
 import CountryList from "./CountryList";
@@ -10,6 +11,7 @@ import { updatePreferencesData } from '../redux/userProfile';
 import { updatePreferences, loadPreferences } from '../service/profileService';
 import { countryFlagList, religionFlagList } from "../common/multiPurposeLists";
 import { searchService } from "../service/suggestionsService";
+import CONST from '../common/constants'; 
 
 const Search = () => {
   const toast = useRef(null);
@@ -89,7 +91,7 @@ const Search = () => {
               display: "flex",
               flexDirection: "column",
               alignContent: "space-around",
-              height: "600px",
+              minHeight: "200px",
             }}
           >
             <div className="text-lg">
@@ -124,7 +126,26 @@ const Search = () => {
             </div>
           </div>
         </ScrollPanel>
-        <div>results: {searchResults.length}</div>
+        <ScrollPanel>
+        { searchResults.map(item=>(
+      // <div key={item.id} 
+      //   style={{ 
+      //   overflow:"hidden",
+      //   // backgroundColor:"lightsalmon",
+      //   justifyItems:"center"
+      //    }} className="col-6 lg:col-2 md:col-3">
+      <div id={item.id}>
+        <Link to={"../viewprofile/"+item.id}>
+          <div>
+          {/* <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL_FILESTORAGE+"/"+JSON.parse(item.album)[0]}/> */}
+          <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL_FILESTORAGE+"/"+JSON.parse(item.album)[0]}/>
+          <div style={{textAlign:"center"}}><Button severity="secondary" text >{JSON.parse(item.profile).fullName}<br/> {JSON.parse(item.profile).country}</Button></div>
+          </div>
+        </Link>
+      </div>
+      ))}
+        </ScrollPanel>
+        
       </div>
       <div className="col-12 lg:col-3 md:col-3 sm:col-0"></div>
     </div>
