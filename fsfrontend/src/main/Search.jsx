@@ -69,7 +69,7 @@ const Search = () => {
     console.log(res);
     if(res){
       setSearchResults(res);
-      showToast({severity:'success', summary: 'Success', detail:'Found records', life: 1000});
+      // showToast({severity:'success', summary: 'Success', detail:'Found records', life: 1000});
     } else {
       showToast({severity:'error', summary: 'Error', detail:'something went wrong...', life: 3000});      
     };
@@ -121,12 +121,13 @@ const Search = () => {
               />
             </div>
             <p />
-            <div style={{ width: "100%" }}>
-              <Button className="wd-full" onClick={() => { handleSearch(ageRange, religions, countries) }}>Search</Button>
-            </div>
+              <center>
+                <Button outlined icon="pi pi-search" style={{width:"90%"}} className="wd-full" onClick={() => { handleSearch(ageRange, religions, countries) }} label="Search" />
+              </center>
           </div>
         </ScrollPanel>
         <ScrollPanel>
+        {searchResults.length === 0 ? <div><Button label="There are no matching profiles..." severity="danger" text /></div>:""}
         { searchResults.map(item=>(
       // <div key={item.id} 
       //   style={{ 

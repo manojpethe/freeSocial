@@ -111,9 +111,7 @@ const DesiredPartner = () => {
                 />
             </div>
             <p/>
-            <div style={{width:"100%"}}>
-              <Button className="wd-full" onClick={()=>{ handleSave(ageRange,religions,countries) }}>Save Preferences</Button>
-            </div>
+              <Button outlined icon="pi pi-save" label="Save Preferences" style={{width:"100%"}} className="wd-full" onClick={()=>{ handleSave(ageRange,religions,countries) }}/>
           </div>
         </ScrollPanel>
       </div>
