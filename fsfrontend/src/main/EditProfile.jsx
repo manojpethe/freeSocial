@@ -12,6 +12,7 @@ import { ListBox } from "primereact/listbox";
 import { useDispatch } from 'react-redux';
 import { updateData } from '../redux/userProfile';
 import { useSelector } from 'react-redux'
+import moment from 'moment';
 import axios from 'axios';
 import { profileService } from '../service/profileService';
 import CONST from '../common/constants';
@@ -168,12 +169,12 @@ const EditBasicInfo = (props) => {
 
 const ShowCriticalInfo = (props) => {
   const userProfile = props.userProfile.data;
-
+  const birthDateObj = moment(userProfile.birthDate);
   return (<div>
     <div><br />
       <div className="grid" style={{ "width": "100%" }}>
         <div className="col-6 lg:col-6 md:col-6">Birthdate</div>
-        <div className="col-6 lg:col-6 md:col-6">{userProfile.birthDate}</div>
+        <div className="col-6 lg:col-6 md:col-6">{birthDateObj.format('YYYY-MM-DD')}</div>
         <div className="col-6 lg:col-6 md:col-6">Marital Status</div>
         <div className="col-6 lg:col-6 md:col-6">{userProfile.maritalStatus}</div>
       </div>
@@ -307,7 +308,7 @@ const EditCriticalInfo = (props) => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile.data);
   const userInfo = useSelector((state) => state.userInfo.data);
-  const [birthDate, setBirthDate] = useState( new Date(userProfile.birthDate) || '1/1/90');
+  const [birthDate, setBirthDate] = useState( new Date(userProfile.birthDate || '2001-04-30T18:30:00.00Z') );
   const [maritalStatus, setMaritalStatus] = useState({ name: (userProfile.maritalStatus|| 'Unmarried' ), code: (userProfile.maritalStatus|| 'Unmarried' )});
   const maritalStatusOptions = [
     { name: 'Unmarried', code: 'Unmarried' },
@@ -316,14 +317,14 @@ const EditCriticalInfo = (props) => {
   ];
 
   const handleUpdateCriticalInfo = async()=> {
-    const result = await profileService(userInfo.email,{ ...props.userProfile.data, maritalStatus: maritalStatus.name, birthDate: getDatemmddyyyy(birthDate)});
+    const result = await profileService(userInfo.email,{ ...props.userProfile.data, maritalStatus: maritalStatus.name, birthDate: birthDate});
     dispatch(updateData(result));
   }
 
   return (<div>
     <div className="grid" style={{ "width": "100%" }}>
-      <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }} >Birthdate (MM-DD-YYYY)</div>
-      <div className="col-12 lg:col-8 md:col-8"><Calendar value={birthDate} onChange={ (e)=>{ setBirthDate(e.value) } } showIcon /></div>
+      <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }} >Birthdate (YYYY-MM-DD)</div>
+      <div className="col-12 lg:col-8 md:col-8"><Calendar dateFormat="yy-mm-dd" value={birthDate} onChange={ (e)=>{ console.log(e.value); setBirthDate(e.value) } } showIcon /></div>
       <div className="col-12 lg:col-4 md:col-4" style={{ "textAlign": "left", "fontFamily": "verdana", }}>Marital Status</div>
       <div className="col-12 lg:col-8 md:col-8"><div className="card flex justify-content-center">
         <Dropdown value={maritalStatus} onChange={(e) => { setMaritalStatus(e.value)}} options={maritalStatusOptions} optionLabel="name"

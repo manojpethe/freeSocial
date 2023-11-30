@@ -6,6 +6,7 @@ import { InputText } from "primereact/inputtext";
 import { RadioButton } from "primereact/radiobutton";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import moment from "moment";
 import axios from "axios";
 import CONST from "../common/constants";
 
@@ -20,7 +21,7 @@ const emptyProfile = {
   caste: "",
   managedBy: "",
   maritalStatus: "",
-  birthDate: "01/01/1990",
+  birthDate: Date(),
   aboutMe: "",
   family: "",
   education: "",
@@ -141,8 +142,10 @@ const Signup = () => {
           <div className="col-12 lg:col-8 md:col-8">
             <Calendar
               placeholder="Birthdate"
+              dateFormat="yy-mm-dd"
               value={birthDate}
               onChange={(e) => {
+                console.log(e.value);
                 setBirthDate(e.value);
               }}
               showIcon
