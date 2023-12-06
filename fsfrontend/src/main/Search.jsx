@@ -135,7 +135,7 @@ const Search = () => {
       //   // backgroundColor:"lightsalmon",
       //   justifyItems:"center"
       //    }} className="col-6 lg:col-2 md:col-3">
-      <div id={item.id}>
+      <div key={item.id}>
         <Link to={"../viewprofile/"+item.id}>
           <div>
           {/* <img style={{ marginLeft:"auto", marginRight:"auto", display:"block"}} height="200px" src={CONST.SERVER_URL_FILESTORAGE+"/"+JSON.parse(item.album)[0]}/> */}
