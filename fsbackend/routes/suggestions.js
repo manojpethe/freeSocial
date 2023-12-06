@@ -3,7 +3,7 @@ var router = express.Router();
 var Users = require("../model/users");
 var db = require("../model/database");
 const { Op } = require("sequelize");
-
+var moment = require('moment');
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
     // console.log(JSON.parse(req.cookies.userInfo).email);
@@ -28,7 +28,7 @@ router.get('/', async function(req, res, next) {
         where json_extract(profile,'$.gender') != '${req.query.gender}'\n`;
         
         let religionClause = "";
-        if(preferences?.religions.length){
+        if(preferences.religions.length){
           religionClause = "\tAND json_extract(profile,'$.religion') in ";
           let listOfReligions = "";
           for(let i = 0; i< preferences.religions.length; i++){
@@ -42,7 +42,7 @@ router.get('/', async function(req, res, next) {
         }
 
         let countryClause = "";
-        if(preferences?.countries.length){
+        if(preferences.countries.length){
           countryClause = "\tAND json_extract(profile,'$.country') in ";
           let listOfCountries = "";
           for(let i = 0; i< preferences.countries.length; i++){
@@ -54,8 +54,20 @@ router.get('/', async function(req, res, next) {
           }
           countryClause = countryClause + "(" + listOfCountries + ") \n";
         }
-
-        sql = sql + religionClause + countryClause;
+        
+        let ageClause = "";
+        if(preferences.ageRange.length){
+          console.log(preferences.ageRange);
+          const sDate = moment();
+          const eDate = moment();
+          // 1990-01-01T18:30:00.000Z
+          // 2003-12-06
+          let startDate = sDate.subtract(preferences.ageRange[0],'years').format('YYYY-MM-DD')+'T00:00:00.000Z';
+          let endDate = eDate.subtract(preferences.ageRange[1],'years').format('YYYY-MM-DD')+'T00:00:00.000Z';
+          ageClause = "\tAND date(json_extract(profile,'$.birthDate')) between  '"+endDate+"' AND '"+startDate+"'";
+        }
+  
+        sql = sql + religionClause + countryClause + ageClause;
       } else {
         sql = `SELECT * FROM Users where profile not like '%"gender":"${req.query.gender}"%'`;
       }
@@ -99,7 +111,7 @@ if( req.query.queryType === 'search' && req.query.gender && req.query.id){
       where json_extract(profile,'$.gender') != '${req.query.gender}'\n`;
       
       let religionClause = "";
-      if(preferences?.religions.length){
+      if(preferences.religions.length){
         religionClause = "\tAND json_extract(profile,'$.religion') in ";
         let listOfReligions = "";
         for(let i = 0; i< preferences.religions.length; i++){
@@ -113,7 +125,7 @@ if( req.query.queryType === 'search' && req.query.gender && req.query.id){
       }
 
       let countryClause = "";
-      if(preferences?.countries.length){
+      if(preferences.countries.length){
         countryClause = "\tAND json_extract(profile,'$.country') in ";
         let listOfCountries = "";
         for(let i = 0; i< preferences.countries.length; i++){
@@ -126,7 +138,19 @@ if( req.query.queryType === 'search' && req.query.gender && req.query.id){
         countryClause = countryClause + "(" + listOfCountries + ") \n";
       }
 
-      sql = sql + religionClause + countryClause;
+      let ageClause = "";
+      if(preferences.ageRange.length){
+        console.log(preferences.ageRange);
+        const sDate = moment();
+        const eDate = moment();
+        // 1990-01-01T18:30:00.000Z
+        // 2003-12-06
+        let startDate = sDate.subtract(preferences.ageRange[0],'years').format('YYYY-MM-DD')+'T00:00:00.000Z';
+        let endDate = eDate.subtract(preferences.ageRange[1],'years').format('YYYY-MM-DD')+'T00:00:00.000Z';
+        ageClause = "\tAND date(json_extract(profile,'$.birthDate')) between  '"+endDate+"' AND '"+startDate+"'";
+      }
+
+      sql = sql + religionClause + countryClause + ageClause;
     } else {
       sql = `SELECT * FROM Users where profile not like '%"gender":"${req.query.gender}"%'`;
     }
