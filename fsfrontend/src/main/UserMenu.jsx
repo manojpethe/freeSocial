@@ -61,7 +61,7 @@ const UserMenu = () => {
 
     const totalUnseenMessages = ()=>{
         let total = 0;
-        if(connections.length){
+        if(connections?.length){
             connections.forEach(element => {
                 total = total + element.unseen;
             });

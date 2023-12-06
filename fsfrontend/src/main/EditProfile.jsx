@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useRef } from 'react'
 import { Panel } from 'primereact/panel';
-// import { Card } from 'primereact/card';
+import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
@@ -102,7 +102,11 @@ const EditBasicInfo = (props) => {
 
   const handleUpdateBasicInfo = async ()=> {
     const result = await profileService(userInfo.email,{ ...userProfile, fullName, gender, height, religion, motherTongue, caste, location, country, annualIncome,managedBy });
-    dispatch(updateData(result));
+    if(!result){
+      console.log("something went wrong...");
+    }
+    else {dispatch(updateData(result));
+    }
   }
 
   const countryTemplate = (option) => {
@@ -356,6 +360,7 @@ const EditContainer = (props) => {
 }
 
 const EditProfile = () => {
+  const toast = useRef(null);
   const userInfo = useSelector((state) => state.userInfo.data);
   const userProfile = useSelector((state) => state.userProfile);
   const dispatch = useDispatch();
@@ -373,12 +378,20 @@ const EditProfile = () => {
         dispatch(updateData(res.data.user.profile));
       }
     })
-    .catch(e=>{console.log("Something went Wrong!",e)})
+    .catch(e=>{
+      console.log("Communication Error",e);
+      showToast({severity:'error', summary: 'Error', detail:'Communication Error...', life: 3000});
+  })
 
-  },[]) 
+  },[])
+
+  const showToast = (message) => {
+    toast.current.show(message);
+  };
 
   return (
     <div className="grid" style={{ "width": "100%" }}>
+      <Toast ref={toast} />
       <div className="col-12 lg:col-3 md:col-3 "></div>
       <div className="col-12 lg:col-6 md:col-6">
         <Panel header="Edit Profile">

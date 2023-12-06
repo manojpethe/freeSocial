@@ -32,13 +32,13 @@ const Suggestions = () => {
     const result = await loadProfile(userInfo.email);
     // console.log(result);
     if(!result){
-      showToast({severity:'error', summary: 'Error', detail:'something went wrong...', life: 3000});      
+      showToast({severity:'error', summary: 'Error', detail:'Communication Error...', life: 3000});      
     } else {
       dispatch(updateData(result));
       if(result.gender){
         const result2 = await suggestionsService(userInfo.id,result.gender);
         if(!result2){
-          showToast({severity:'error', summary: 'Error', detail:'something went wrong...', life: 3000});      
+          showToast({severity:'error', summary: 'Error', detail:'Communication Error...', life: 3000});      
           dispatch(loadData([]));
         } else {
           dispatch(loadData(result2));

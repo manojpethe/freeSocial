@@ -42,6 +42,8 @@ const DesiredPartner = () => {
          finalReligionList.push(name);
       });
       setReligions(finalReligionList);
+    } else {
+      showToast({severity:'error', summary: 'Error', detail:'Communication Error', life: 3000});  
     }
   }
 
