@@ -68,7 +68,7 @@ const Chat = () => {
               color: "white",
             }}
           >
-            {item.message} <sub><span className="text-xs"> {moment(item.createdAt).format('HH:MM')} </span></sub>
+            {item.message} <sub><span className="text-xs"> {moment(item.createdAt).format('HH:mm')} </span></sub>
           </div>
         </div>
       );
@@ -86,7 +86,7 @@ const Chat = () => {
               color: "black",
             }}
           >
-            {item.message} <sub><span className="text-xs"> {moment(item.createdAt).format('HH:MM')} </span></sub>
+            {item.message} <sub><span className="text-xs"> {moment(item.createdAt).format('HH:mm')} </span></sub>
           </div>
         </div>
       );
